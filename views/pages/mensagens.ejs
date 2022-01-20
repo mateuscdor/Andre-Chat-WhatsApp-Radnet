@@ -1,0 +1,128 @@
+<%- include('../layout-header'); -%>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-2 p-3">
+                        <h3>mensagens</h3>
+                        <p>Monitore e gerencia as mensagens de todo o sistema para a sua empresa</p>
+
+                        <div class="list-group">
+                            <a href="" class="list-group-item list-group-item-action active deslocar"
+                                id="inicioMensagens" onclick="mensagensController.renderInicio(event)"
+                                onmouseover="mensagensController.mouseover(this)"
+                                onmouseout="mensagensController.mouseout(this)"> Início
+                            </a>
+                            <a href="" class="list-group-item list-group-item-action deslocar" id="automaticas"
+                                onclick="mensagensController.renderAutomaticas(event)"
+                                onmouseover="mensagensController.mouseover(this)"
+                                onmouseout="mensagensController.mouseout(this)">Automáticas</a>
+                            <a href="" class="list-group-item list-group-item-action deslocar" id="filaDeEnvio"
+                                onclick="mensagensController.renderFilaDeEnvio(event)"
+                                onmouseover="mensagensController.mouseover(this)"
+                                onmouseout="mensagensController.mouseout(this)">Fila de
+                                envio</a>
+                            <a href="" class="list-group-item list-group-item-action deslocar" id="modelos"
+                                onclick="mensagensController.renderModelos(event)"
+                                onmouseover="mensagensController.mouseover(this)"
+                                onmouseout="mensagensController.mouseout(this)">Modelos</a>
+                            <a href="" class="list-group-item list-group-item-action deslocar" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" onmouseover="mensagensController.mouseover(this)"
+                                onmouseout="mensagensController.mouseout(this)">Enviar / Agendar
+                                mensagem</a>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Enviar/Agendar mensagem</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span>Canal</span>
+                                            <select class="form-select mb-3" aria-label="Default select example">
+                                                <option selected>Selecione o canal</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input mb-3">
+                                                <span class="input-text" id="basic-addon1">Enviar em</span>
+                                                <input type="datetime-local" class="form-control" placeholder="Username"
+                                                    aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <span>Enviar para cliente</span>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Selecione o cliente</option>
+                                        </select>
+                                        <p> <small>
+                                                <strong>
+
+                                                    Busque pelo número formatado ou nome do cliente,
+                                                </strong> mas
+                                                sempre
+                                                envie a
+                                                mensagem com o número do cliente com DDD inserido acima!
+                                            </small>
+                                        </p>
+                                    </div>
+
+
+                                    <div class="input">
+                                        <span class="input-text">Mensagem</span>
+                                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                                        <span class="badge bg-success">Novo</span> Aperte / para acessar as mensagens
+                                        modelo
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success">Enviar mensagem</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-10 p-3" id="renderizarSection">
+
+                    </div>
+                </div>
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <script>
+        const ip_servidor = "<%= ip_servidor %>";
+    </script>
+    <script src="assets/controllers/MensagensController.js"></script>
+    <script src="assets/controllers/requisicoesAjax/PegarTodasMensagensSistemaAjax.js"></script>
+    <script src="assets/helpers/RenderMensagens.js"></script>
+
+    <script>
+        let mensagensController = new MensagensController();
+    </script>
+
+    <%- include('../layout-footer'); -%>

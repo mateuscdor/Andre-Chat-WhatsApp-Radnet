@@ -1,0 +1,13 @@
+.menu-canais {
+  text-align: start;
+}
+.menu-canais li {
+  list-style-type: none;
+  padding: 4px;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+.menu-canais li:hover {
+  background-color: rgb(216, 216, 216);
+  transform: scale(1.2);
+}
