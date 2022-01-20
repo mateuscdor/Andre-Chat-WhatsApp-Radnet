@@ -1,0 +1,354 @@
+<%- include('../layout-header'); -%>
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+
+                </div>
+                <!-- /.row -->
+                <!-- Main row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <section class="col-lg-12 connectedSortable">
+                        <!-- Custom tabs (Charts with tabs)-->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-power-off mr-1"></i>
+                                    Canais
+                                </h3>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-2 p-3">
+                                            <div class="">
+                                                <p>Quais são os canais de contato que a sua empresa disponibiliza?</p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <ul class="menu-canais">
+                                                    <li>Meus Canais</li>
+                                                    <li>Histórico de status</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-10 p-3" id="devices">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="">
+                                                    <h1>listagem</h1>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+
+                                                    <form id="form-canais"
+                                                        onsubmit="canaisController.cadastrarCanal(event,this)">
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-success btn-sm"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            <i class="fas fa-plus me-1"></i>
+                                                            Whatsapp
+                                                            Web
+                                                        </button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Cadastrar
+                                                                            canal
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <div class="input-group mb-3">
+                                                                                    <span class="input-group-text"
+                                                                                        id="basic-addon1">Nome</span>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Como irá identificar o canal?"
+                                                                                        aria-label="Username"
+                                                                                        aria-describedby="basic-addon1"
+                                                                                        name="nome">
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <div class="input-group mb-3">
+                                                                                    <span class="input-group-text"
+                                                                                        id="basic-addon1">Número</span>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Número do Whatsapp"
+                                                                                        aria-label="Username"
+                                                                                        aria-describedby="basic-addon1"
+                                                                                        name="numero">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+
+                                                                        <button type="submit"
+                                                                            class="btn btn-success">Cadastrar</button>
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                            <div class="canaisLista">
+                                                <% for(var i=0; i < canais.length; i++) { %>
+
+                                                    <div
+                                                        class="d-flex justify-content-between bg-light rounded-3 pe-4 ps-4 pt-2 pb-2 mt-3">
+                                                        <div class="d-flex">
+                                                            <div
+                                                                class="d-flex justify-content-center align-items-center ">
+                                                                <img src="assets/img/whatsapp-logo-1.png" width="50"
+                                                                    height="50" class="me-3">
+                                                                <div class="d-flex flex-column">
+                                                                    <h3>
+                                                                        <%= canais[i].nome %> - <%= canais[i].fone %>
+                                                                    </h3>
+                                                                    <p>
+                                                                        <%= canais[i].fone %>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <% if (canais[i].status=="conectado" ) { %>
+                                                                <button class="btn btn-success btn-sm me-3">
+                                                                    <i class="fas fa-check me-1"></i>
+                                                                    <%= canais[i].status %>
+
+                                                                        <% }else{ %>
+                                                                            <button class="btn btn-danger btn-sm me-3">
+                                                                                <i class="fas fa-times me-1"></i>
+                                                                                <%= canais[i].status %>
+
+                                                                            </button>
+
+                                                                            <% }%>
+
+                                                                                <div class="dropdown">
+                                                                                    <button
+                                                                                        class="btn btn-warning btn-sm"
+                                                                                        type="button"
+                                                                                        id="dropdownMenuButton1"
+                                                                                        data-bs-toggle="dropdown"
+                                                                                        aria-expanded="false">
+                                                                                        <i
+                                                                                            class="fas fa-bars text-light"></i>
+                                                                                    </button>
+                                                                                    <ul class="dropdown-menu"
+                                                                                        aria-labelledby="dropdownMenuButton1">
+                                                                                        <li>
+
+                                                                                            <% if
+                                                                                                (canais[i].status=="conectado"
+                                                                                                ) { %>
+                                                                                                <a class="dropdown-item desconectar"
+                                                                                                    href=""
+                                                                                                    id="<%= canais[i].fone %>"
+                                                                                                    onclick="canaisController.desconectar(event,this)">
+                                                                                                    <span
+                                                                                                        class="text-primary">
+                                                                                                        <i
+                                                                                                            class="fas fa-sign-out-alt me-1 text-primary"></i>
+                                                                                                        Desconectar
+                                                                                                    </span>
+                                                                                                </a>
+                                                                                                <% }else{ %>
+                                                                                                    <a class="dropdown-item conectar"
+                                                                                                        href=""
+                                                                                                        id="<%= canais[i].nome %>-<%= canais[i].fone %>"
+                                                                                                        onclick="canaisController.conectar(event,this)">
+                                                                                                        <span
+                                                                                                            class="text-success">
+                                                                                                            <i
+                                                                                                                class="fas fa-check me-1 text-success"></i>
+                                                                                                            Conectar
+                                                                                                        </span>
+                                                                                                    </a>
+
+                                                                                                    <% }%>
+
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a class="dropdown-item editar"
+                                                                                                href=""
+                                                                                                data-bs-toggle="modal"
+                                                                                                data-bs-target="#exampleModal2"
+                                                                                                id="<%= canais[i].nome %>-<%= canais[i].fone %>"
+                                                                                                onclick="canaisController.editarCanal(event,this)">
+                                                                                                <span
+                                                                                                    class="text-primary">
+                                                                                                    <i
+                                                                                                        class="fas fa-edit me-1 text-primary"></i>
+                                                                                                    Editar
+                                                                                                    Informações
+                                                                                                </span>
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                            <a class="dropdown-item excluir"
+                                                                                                href=""
+                                                                                                data-bs-toggle="modal"
+                                                                                                data-bs-target="#exampleModal3"
+                                                                                                id="<%= canais[i].fone %>"
+                                                                                                onclick="canaisController.excluirCanal(event,this)">
+                                                                                                <span
+                                                                                                    class="text-danger">
+                                                                                                    <i
+                                                                                                        class="fas fa-times me-1 text-danger"></i>
+                                                                                                    Excluir
+                                                                                                    canal
+                                                                                                </span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <% } %>
+                                            </div>
+                                            <div class="qrcodediv mt-3">
+
+                                            </div>
+
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal2" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Editar canal</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">Nome</span>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Como irá identificar o canal?"
+                                                                            aria-label="Username"
+                                                                            aria-describedby="basic-addon1"
+                                                                            id="editar-nome">
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">Número</span>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Número do Whatsapp"
+                                                                            aria-label="Username"
+                                                                            aria-describedby="basic-addon1"
+                                                                            id="editar-numero">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary"
+                                                                id="confirm_atualizar"
+                                                                onclick="canaisController.confirmarAtualizar()">Atualizar</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal3" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Excluir canal
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Desenha realmente excluir este canal?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger"
+                                                                id="confirm_excluir"
+                                                                onclick="canaisController.confirmarExcluir()">Excluir</button>
+                                                            <button type=" button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <!-- /.container-fluid -->
+
+                                        </div><!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                    </section>
+                    <!-- /.row (main row) -->
+                </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <script>
+        const ip_servidor = "<%= ip_servidor %>";
+    </script>
+
+    <script src="assets/controllers/CanaisController.js"></script>
+    <script src="assets/controllers/requisicoesAjax/CanaisRequisicoesAjax.js"></script>
+    <script src="assets/helpers/RenderQrCode.js"></script>
+    <script>
+        let canaisController = new CanaisController();
+    </script>
+
+    <%- include('../layout-footer'); -%>

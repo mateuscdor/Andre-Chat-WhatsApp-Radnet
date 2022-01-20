@@ -13,8 +13,15 @@ module.exports = (app) => {
     funcoes.logout();
     let logado = await funcoes.retornarUsuarioLogado();
     console.log(logado);
-    Logados.mudarStatus({ status: "desconectado" }, logado[0].nome);
-    res.redirect("/");
+
+    if (logado === null) {
+      res.redirect("/");
+    } else {
+      console.log(logado);
+      Logados.mudarStatus({ status: "desconectado" }, logado[0].nome);
+
+      res.redirect("/");
+    }
   });
 
   app.post("/conectar", async function (req, res) {
