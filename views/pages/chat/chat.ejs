@@ -1,0 +1,352 @@
+<!-- inicio do chat -->
+
+
+<div class="vh-100 col p-0 m-0" style="position: relative;" id="tela-chat">
+
+    <div class="d-flex justify-content-between bg-light">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="">
+                <img src="assets/img/transferir.png" class="img-chat m-2">
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="mt-3 mb-1">
+                    <p><strong id="clienteStrong">(61)</strong> <br>
+                        <small id="clienteSmall">(61) - Offline</small>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="mt-3 mb-1">
+
+                <p>
+                    <strong id="canalStrong">Canal: </strong> <br>
+                    <small id="protocoloSmall">Protocolo:</small>
+                </p>
+            </div>
+            <div class="d-flex flex-wrap ms-3 me-3">
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                    data-bs-placement="bottom" data-bs-content="Mensagens Internas">
+                    <i class="fas fa-paper-plane  ms-2 me-2 p-2 mensagens-internas"></i>
+                </span>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                    data-bs-placement="bottom" data-bs-content="Transferir Atendimento">
+                    <span data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                        <i class="fas fa-exchange-alt  ms-2 me-2"></i>
+                    </span>
+
+                </span>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Transferir atendimento</h5>
+                                <button type="button" class="btn-close btnCancelar" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div
+                                    class="TransferirAtendimentoBotoes d-flex justify-content-center align-items-center mb-3 mt-2">
+                                    <button type="button" class="btn btn-primary me-3" id="botaoPessoa">Pessoa</button>
+                                    <button type="button" class="btn btn-light"
+                                        id="botaoDepartamento">Departamento</button>
+                                </div>
+                                <div class="modalPessoa">
+
+
+                                </div>
+                                <div class="modalDepartamento">
+
+
+                                </div>
+                                <div class="avisoPreencher">
+
+                                </div>
+                                <div class="">
+                                    Mensagem <sup>(Opcional)</sup>
+                                    <div class="input-group">
+
+                                        <textarea class="form-control" aria-label="With textarea"
+                                            id="mensagemTransferencia"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnTransferir">Transferir</button>
+                                <button type="button" class="btn btn-secondary btnCancelar"
+                                    data-bs-dismiss="modal">Cancelar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <i class="fas fa-ellipsis-v ms-2 me-2 ps-2 pe-2 pt-1 pb-1" data-bs-toggle="dropdown"
+                        id="dropdownMenuButton1" aria-expanded="false"></i>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal5"
+                                id="perfilCliente"><i class="fas fa-user me-2"></i> Perfil do
+                                Cliente</a></li>
+
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-day me-2"></i>Atendimentos
+                                Anteriores</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-robot me-2"></i> Enviar para
+                                automação</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                            <span class="ms-3 mt-3">Encerrar Atendimentos</span>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-primary" href="#"><i class="far fa-comment-dots me-2"></i> Com
+                                Mensagem</a>
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-comment-slash me-2"></i> Sem
+                                Mensagem</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="d-flex flex-column">
+                                    <h5 class="modal-title" id="exampleModalLabel">Perfil do
+                                        Cliente</h5>
+                                    <small>Atualize as informações</small>
+                                </div>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                Informações básicas
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>Nome</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="nomeCliente">
+                                                </div>
+
+                                                <div class="input mb-3">
+                                                    <small>Contato</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="contatoCliente" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                Informações adicionais
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>Segundo contato</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="segundoContatoCliente">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>E-mail</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="emailCliente">
+                                                </div>
+
+                                                <div class="input mb-3">
+                                                    <small>Empresa</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="empresaCliente">
+                                                </div>
+
+                                                <div class="input">
+                                                    <small>Anotações</small>
+                                                    <textarea class="form-control" aria-label="With textarea"
+                                                        name="anotacoesCliente"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                Endereço
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                            aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="input mb-3">
+                                                    <small>Cep</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="cepCliente">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Logradouro</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="logradouroCliente">
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-4">
+                                                        <small>Número</small>
+                                                        <input type="text" class="form-control" aria-label="Username"
+                                                            aria-describedby="basic-addon1" name="numeroCliente">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <small>Bairro</small>
+                                                        <input type="text" class="form-control" aria-label="Username"
+                                                            aria-describedby="basic-addon1" name="bairroCliente">
+                                                    </div>
+
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Complemento</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="complementoCliente">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Cidade</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="cidadeCliente">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>Estado</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="estadoCliente">
+                                                </div>
+                                                <div class="input mb-3">
+                                                    <small>País</small>
+                                                    <input type="text" class="form-control" aria-label="Username"
+                                                        aria-describedby="basic-addon1" name="paisCliente">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="salvarInfoCliente">Salvar</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="back-chat vh-100" style="overflow-y: scroll" id="back-chat">
+
+        <div class=" mt-4"></div>
+
+
+        <div class="mensagens-chat" id="mensagens-chat">
+
+        </div>
+
+
+        <div style="height: 170px;"></div>
+
+        <div class=""
+            style=" width: 100%; height: 80px; background-color: #000000; position: absolute; bottom: 0; left: 0">
+
+            <div class="d-flex justify-content-center align-items-center bg-light " style="height:80px;">
+
+                <div class=" row input-group input-group-sm">
+
+                    <form id="chat" onsubmit="chatController.enviarMensagem(event)">
+
+                        <div class="d-flex justify-content-between">
+                            <div class="col-1 d-flex flex-wrap  justify-content-evenly align-items-center">
+                                <div class="dropdown">
+                                    <i class="fas fa-paperclip ms-2 me-2 ps-2 pe-2 pt-1 pb-1" data-bs-toggle="dropdown"
+                                        id="dropdownMenuButton1" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Contato</a></li>
+                                        <li><a class="dropdown-item" href="#">Documento</a></li>
+                                        <li><a class="dropdown-item" href="#">Imagem</a></li>
+                                    </ul>
+                                </div>
+
+                                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover"
+                                    data-bs-trigger="hover focus" data-bs-placement="top"
+                                    data-bs-content="Clique selecionar uma mensagem modelo">
+                                    <i class="fas fa-bolt  ms-2 me-2"></i>
+                                </span>
+                            </div>
+
+                            <!--  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Encontre o atendimento em andamento"> -->
+
+                            <div class="col-10 d-flex flex-column" style=" height: 20px;">
+                                <input type="text" name="texto" id="buscar" disabled placeholder="Digite sua mensagem">
+
+                                <!--  <textarea id="textarea" name="texto"></textarea> -->
+                            </div>
+
+                            <div class="col-1 d-flex flex-wrap justify-content-around">
+                                <button type="submit" class="btn btn-primary pb-0 pt-0 ">
+                                    <i class="fas fa-paper-plane fa-sm text-light" id="enviar"
+                                        style="padding:8px;border-radius: 50px;"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                    </form>
+
+
+                    <div class="fechar" style="position: absolute;bottom: 68px; right:9px; ">
+                        <div class="responder">
+                            <!-- -->
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- fim do chat -->
+
+
+
+</div>

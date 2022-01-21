@@ -1,0 +1,99 @@
+<!-- Page specific script -->
+<script>
+    $(function () {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        let notificacoes = document.querySelector(".notificacoes");
+
+
+
+
+        $('.notificacoes').click(function () {
+
+            if (notificacoes.classList.contains("toastrDefaultSuccess")) {
+
+                notificacoes.classList.remove("toastrDefaultSuccess");
+                notificacoes.classList.add("toastrDefaultInfo");
+                toastr.info('Notificações sonoras desativadas');
+                notificacoes.classList.remove("fa-bell");
+                notificacoes.classList.add("fa-bell-slash");
+                notificacoes.classList.remove("text-primary");
+                notificacoes.classList.add("text-danger");
+
+
+            } else {
+
+                notificacoes.classList.remove("toastrDefaultInfo");
+                notificacoes.classList.add("toastrDefaultSuccess");
+                toastr.success('Notificações sonoras ativadas');
+                notificacoes.classList.add("fa-bell");
+                notificacoes.classList.remove("fa-bell-slash");
+                notificacoes.classList.remove("text-danger");
+                notificacoes.classList.add("text-primary");
+
+            }
+
+        });
+
+
+        /*
+                $('.toastrDefaultSuccess').click(function () {
+                    toastr.success('Notificações sonoras ativadas')
+        
+        
+                });
+                $('.toastrDefaultInfo').click(function () {
+                    toastr.info('Notificações sonoras desativadas')
+                });
+                */
+    });
+</script>
+<script>
+    const ip_servidor = "<%= ip_servidor %>";
+</script>
+<script src="assets/controllers/ChatController.js"></script>
+<script src="assets/controllers/requisicoesAjax/ChatRequisicoesAjax.js"></script>
+<script src="assets/controllers/requisicoesAjax/CanaisRequisicoesAjax.js"></script>
+<script src="assets/helpers/RenderUltimaMensagem.js"></script>
+<script src="assets/helpers/RenderMensagensChat.js"></script>
+<script src="assets/helpers/GuardarNumerosClicados.js"></script>
+<script src="assets/helpers/InserirUltimasMensagens.js"></script>
+<script src="assets/helpers/ExecutarAudioRecebimento.js"></script>
+<script>
+    let chatController = new ChatController(ip_servidor);
+</script>
+
+<!-- SweetAlert2 -->
+<script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="assets/plugins/toastr/toastr.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script> -->
+<!--
+<script>
+    $('#textarea').emojioneArea({
+        pickerPosition: 'top'
+    })
+</script>
+-->
+</body>
+
+</html>

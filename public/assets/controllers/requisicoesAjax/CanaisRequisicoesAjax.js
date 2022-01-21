@@ -67,4 +67,22 @@ class CanaisRequisicoesAjax {
       console.log(response);
     });
   }
+
+  static buscarCanais(ip_servidor) {
+    let todosCanais = null;
+
+    var settings = {
+      url: `${ip_servidor}/buscarCanais`,
+      method: "POST",
+      timeout: 0,
+      async: false,
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      todosCanais = response;
+    });
+
+    return todosCanais;
+  }
 }

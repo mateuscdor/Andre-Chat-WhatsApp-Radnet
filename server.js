@@ -5,12 +5,12 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-//const funcoes = require("./funcoes/funcoes");
+const funcoes = require("./funcoes/funcoes");
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 const consign = require("consign");
-const conexaoSession = require("./infraestrutura/conexaoSession");
-var MySQLStore = require("express-mysql-session")(session);
+//const conexaoSession = require("./infraestrutura/conexaoSession");
+//var MySQLStore = require("express-mysql-session")(session);
 
 require("dotenv").config();
 
@@ -25,6 +25,7 @@ conexao.connect((erro) => {
   }
 });
 
+/*
 var sessionStore = new MySQLStore({}, conexaoSession);
 
 app.use(
@@ -35,6 +36,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+*/
 
 //utilizado para liberar acesso ao servidor
 app.use((req, res, next) => {
@@ -74,11 +76,6 @@ consign().include("controllers").into(app);
 // server-side
 io.on("connection", (socket) => {
   funcoes.consoleConectado(socket, io);
-
-  socket.on("sendMessage", (data) => {
-    console.log(data);
-    socket.broadcast.emit("receivedMessage", data);
-  });
 });
 
 httpServer.listen(process.env.SERVER_PORT);

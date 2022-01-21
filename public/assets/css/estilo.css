@@ -13,12 +13,19 @@ html {
 
 .barra-esquerda {
   background-color: #fff;
-  min-width: 70px;
-  max-width: 100px;
+  min-width: 90px;
+  max-width: 120px;
 }
 
 .segunda-barra {
   background-color: #f6f7f9;
+  min-width: 300px;
+  max-width: 360px;
+}
+.icon-chat {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .pop-chat {
@@ -76,8 +83,6 @@ html {
   margin: -50px 0 0 0;
 }
 
-.fechar {
-}
 .texto-copiar {
   border-radius: 10px;
 }
