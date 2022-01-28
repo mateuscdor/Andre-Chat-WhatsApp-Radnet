@@ -1,3 +1,5 @@
+const Atendente = require("../models/atendente");
+
 class Tabelas {
   init(conexao) {
     this.conexao = conexao;

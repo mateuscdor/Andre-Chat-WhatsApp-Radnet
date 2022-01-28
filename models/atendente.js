@@ -94,6 +94,42 @@ class Atendente {
       }
     });
   }
+
+  buscarPrimeiroAtendente() {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `SELECT * FROM atendentes LIMIT 1`;
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          var atendente = JSON.parse(JSON.stringify(resultados));
+
+          resolve(atendente);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  inserirPrimeiroAtendente() {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `INSERT INTO atendentes (nome, email, senha, usuario) VALUES ( 'admin', 'admin@admin', 'admin4521', 'admin')`;
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          var atendente = JSON.parse(JSON.stringify(resultados));
+
+          resolve(atendente);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }
 
 module.exports = new Atendente();

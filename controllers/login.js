@@ -34,7 +34,7 @@ module.exports = (app) => {
         }
 
         this.logado = { id: usuarioLogando.id, nome: usuarioLogando.nome };
-        //req.session.isAuth = true;
+        req.session.isAuth = true;
 
         res.redirect("/home");
       }

@@ -99,8 +99,12 @@ class ChatController {
 
     let mensagensInternas = document.querySelector(".mensagens-internas");
 
+    console.log(mensagensInternas);
+
     let mensagensInternasAtivado =
       mensagensInternas.classList.contains("ativado");
+
+    console.log(mensagensInternasAtivado);
 
     var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
     var conectado = GuardarNumerosClicacos.retornarNumerosClicacos().conectado;
@@ -223,6 +227,88 @@ class ChatController {
         audio.play();
       }
     }
+  }
+  mensagensInternas(event, div) {
+    let mensagensInternas = div;
+
+    let icon = document.querySelector(".mensagens-internas");
+
+    if (mensagensInternas.style.color == "") {
+      mensagensInternas.style.backgroundColor = "#1C98DA";
+      mensagensInternas.style.color = "#fff";
+      mensagensInternas.style.borderRadius = "6px";
+      icon.classList.add("ativado");
+      icon.classList.remove("desativado");
+    } else {
+      mensagensInternas.style.backgroundColor = "";
+      mensagensInternas.style.color = "";
+      mensagensInternas.style.borderRadius = "";
+      icon.classList.add("desativado");
+      icon.classList.remove("ativado");
+    }
+  }
+
+  iniciarNovoAtendimento(event, div) {
+    let sessao = null;
+    let canal = $("#selectCanal :selected").val();
+    let fone = $("#inputFone").val();
+    let texto = $("#floatingTextarea2").val();
+    let created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
+    let protocolo = moment(new Date().getTime()).format("YYYYMMDDHHmmsss");
+
+    if (
+      canal == "Selecione uma opção" ||
+      fone == "Selecione uma opção" ||
+      texto == ""
+    ) {
+      toastr.error(`Complete com todas as informações do formulário`);
+    } else {
+      sessao = ChatRequisicoesAjax.retornarSessao(ip_servidor, canal);
+      let data = created_at;
+      let id_protocolo = protocolo;
+      ChatRequisicoesAjax.criarProtocolo(
+        ip_servidor,
+        sessao[0].nome,
+        fone,
+        id_protocolo,
+        canal
+      );
+
+      try {
+        ChatRequisicoesAjax.enviarMensagem(
+          ip_servidor,
+          sessao[0].nome,
+          canal,
+          fone,
+          texto,
+          "chat",
+          data,
+          id_protocolo
+        );
+      } catch (error) {
+        console.log("erro no envio");
+      }
+
+      $("#exampleModal").modal("hide");
+
+      document.location.reload(true);
+    }
+  }
+
+  inserirCanais(event) {
+    let canais = [];
+
+    canais = ChatRequisicoesAjax.buscarCanais(ip_servidor);
+
+    let selectCanais = document.querySelector(".selectCanal");
+
+    canais.forEach((element) => {
+      let canaisInserir = `   
+        <option value="${element.fone}">${element.nome} - ${element.fone}</option>
+         `;
+
+      $(selectCanais).append(canaisInserir);
+    });
   }
 
   retornarSocket() {

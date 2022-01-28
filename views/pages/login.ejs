@@ -1,106 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AdminLTE 3 | Log in (v2)</title>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="assets/plugins/fontawesome-free/css/all.min.css"
+    />
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css"
+    />
     <!-- Theme style -->
-    <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="assets/dist/css/adminlte.min.css" />
     <style>
-        body {
-            background-image: url('assets/img/whatsapp.jpg');
-            background-position: center;
-            /* Center the image */
-            background-repeat: no-repeat;
-            /* Do not repeat the image */
-            background-size: cover;
-            background-attachment: fixed;
-        }
+      body {
+        background-image: url("assets/img/whatsapp.jpg");
+        background-position: center;
+        /* Center the image */
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-size: cover;
+        background-attachment: fixed;
+      }
 
-        .invisivel {
-            display: none;
-        }
+      .invisivel {
+        display: none;
+      }
     </style>
-</head>
+  </head>
 
-<body class="hold-transition login-page" onload="loginController.exibirErroLogin()">
+  <body
+    class="hold-transition login-page"
+    onload="loginController.exibirErroLogin()"
+  >
     <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-success">
-            <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Rad</b>net Telecom</a>
-            </div>
-            <div class="card-body">
-                <p class="login-box-msg">
-                    Faça login para iniciar sua sessão</p>
-
-                <!--<form  method="post" action="/conectar"> -->
-                <form method="post" id="chat">
-                    <div class="input-group mb-3">
-                        <input type="input" class="form-control" placeholder="Usuário / Email" name="email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Senha" name="password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row invisivel" id="preencha">
-                        <div class="col-12 text-center bg-danger pt-0 pb-0 rounded">
-                            <p>Preencha todos os campos</p>
-                        </div>
-                    </div>
-                    <div class="row invisivel" id="usuario-senha">
-                        <div class="col-12 text-center bg-danger pt-0 pb-0 rounded">
-                            <p>Usuário/Email ou Senha inválidos</p>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Lembre-me
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-success btn-block">Acessar</button>
-
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-            </div>
-            <!-- /.card-body -->
+      <!-- /.login-logo -->
+      <div class="card card-outline card-success">
+        <div class="card-header text-center">
+          <a href="../../index2.html" class="h1"><b>Rad</b>net Telecom</a>
         </div>
-        <!-- /.card -->
+        <div class="card-body">
+          <p class="login-box-msg">Faça login para iniciar sua sessão</p>
+
+          <!--<form  method="post" action="/conectar"> -->
+          <form method="post" id="chat">
+            <div class="input-group mb-3">
+              <input
+                type="input"
+                class="form-control"
+                placeholder="Usuário / Email"
+                name="email"
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Senha"
+                name="password"
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row invisivel" id="preencha">
+              <div class="col-12 text-center bg-danger pt-0 pb-0 rounded">
+                <p>Preencha todos os campos</p>
+              </div>
+            </div>
+            <div class="row invisivel" id="usuario-senha">
+              <div class="col-12 text-center bg-danger pt-0 pb-0 rounded">
+                <p>Usuário/Email ou Senha inválidos</p>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-8">
+                <div class="icheck-primary">
+                  <input type="checkbox" id="remember" />
+                  <label for="remember"> Lembre-me </label>
+                </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-4">
+                <button type="submit" class="btn btn-success btn-block">
+                  Acessar
+                </button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
     <!-- /.login-box -->
 
-    <script type="text/javascript" src="assets/controllers/LoginController.js"></script>
+    <script
+      type="text/javascript"
+      src="assets/controllers/LoginController.js"
+    ></script>
     <script>
-        let loginController = new LoginController();
+      let loginController = new LoginController();
     </script>
     <!-- jQuery -->
     <script src="assets/plugins/jquery/jquery.min.js"></script>
@@ -108,6 +132,5 @@
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="assets/dist/js/adminlte.min.js"></script>
-</body>
-
+  </body>
 </html>

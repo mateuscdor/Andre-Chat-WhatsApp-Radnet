@@ -9,8 +9,8 @@ const funcoes = require("./funcoes/funcoes");
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/tabelas");
 const consign = require("consign");
-//const conexaoSession = require("./infraestrutura/conexaoSession");
-//var MySQLStore = require("express-mysql-session")(session);
+const conexaoSession = require("./infraestrutura/conexaoSession");
+var MySQLStore = require("express-mysql-session")(session);
 
 require("dotenv").config();
 
@@ -25,18 +25,16 @@ conexao.connect((erro) => {
   }
 });
 
-/*
 var sessionStore = new MySQLStore({}, conexaoSession);
 
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    store: sessionStore,
     resave: false,
     saveUninitialized: false,
+    store: sessionStore,
   })
 );
-*/
 
 //utilizado para liberar acesso ao servidor
 app.use((req, res, next) => {

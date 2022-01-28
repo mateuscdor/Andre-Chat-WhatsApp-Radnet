@@ -14,7 +14,8 @@
             </span>
 
             <span class="d-inline-block carregarOpcoes" tabindex="0" data-bs-toggle="popover"
-                data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar novo Atendimento">
+                data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar novo Atendimento"
+                onclick="chatController.inserirCanais(event,this)">
                 <span data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fas fa-plus  ms-2 me-2"></i>
                 </span>
@@ -61,7 +62,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary novoAtendimento">Enviar</button>
+                            <button type="button" class="btn btn-primary novoAtendimento"
+                                onclick="chatController.iniciarNovoAtendimento(event,this)">Enviar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </div>

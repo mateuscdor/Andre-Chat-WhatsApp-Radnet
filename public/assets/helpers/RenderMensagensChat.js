@@ -2,6 +2,8 @@ class RenderMensagensChat {
   static renderMensagensChat(message, origem, numero, tipo) {
     let dataNomal = moment(message.data).format("DD/MM/YYYY HH:mm");
 
+    console.log(tipo);
+
     if (tipo == "interna") {
       let templateYou = `
     <div class='d-flex flex-column align-items-end m-3'>
