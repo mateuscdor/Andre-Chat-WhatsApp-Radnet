@@ -1,6 +1,6 @@
 class ChatRequisicoesAjax {
   static carregarConversas(ip_servidor) {
-    let resposta = null;
+    let resposta = [];
     var settings = {
       url: `${ip_servidor}/carregarConversas`,
       method: "POST",

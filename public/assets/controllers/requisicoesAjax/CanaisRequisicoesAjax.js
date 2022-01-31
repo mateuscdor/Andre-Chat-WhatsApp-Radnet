@@ -22,7 +22,6 @@ class CanaisRequisicoesAjax {
     };
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
       resposta = response;
     });
 
@@ -37,9 +36,7 @@ class CanaisRequisicoesAjax {
       async: false,
     };
 
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
+    $.ajax(settings).done(function (response) {});
   }
 
   static editarCanal(ip_servidor, nomeInput, foneInput, editarCanal) {
@@ -50,9 +47,7 @@ class CanaisRequisicoesAjax {
       async: false,
     };
 
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
+    $.ajax(settings).done(function (response) {});
   }
 
   static excluirCanal(ip_servidor, idCanal) {
@@ -63,9 +58,7 @@ class CanaisRequisicoesAjax {
       async: false,
     };
 
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
+    $.ajax(settings).done(function (response) {});
   }
 
   static buscarCanais(ip_servidor) {
@@ -79,7 +72,6 @@ class CanaisRequisicoesAjax {
     };
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
       todosCanais = response;
     });
 

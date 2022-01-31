@@ -2,8 +2,11 @@ class InserirUltimasMensagens {
   static inserirUltimasMensagens(conversas) {
     let ultimaConversa = [];
     let numerosUnicos = [];
-    let canaisCadastrados = null;
+    let canaisCadastrados = [];
     let contem = [];
+    let conversasChat = [];
+
+    conversasChat = conversas;
 
     canaisCadastrados = CanaisRequisicoesAjax.buscarCanais(ip_servidor);
 
@@ -11,13 +14,16 @@ class InserirUltimasMensagens {
       contem.push(element.fone);
     });
 
-    conversas.forEach((element) => {
+    conversasChat.forEach((element) => {
       if (
         numerosUnicos.includes(element.from_number + element.to_number) ||
         numerosUnicos.includes(element.to_number + element.from_number)
       ) {
         for (let index = 0; index < ultimaConversa.length; index++) {
-          if (contem.includes(element.from_number)) {
+          if (
+            contem.includes(element.to_number) ||
+            contem.includes(element.from_number)
+          ) {
             if (
               ultimaConversa[index].id < element.id &&
               ultimaConversa[index].from_number == element.from_number //aki

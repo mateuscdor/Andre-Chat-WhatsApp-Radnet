@@ -42,7 +42,7 @@ class ChatController {
       let numeroClicado = null;
       let BDnotificacoes;
 
-      if (GuardarNumerosClicacos.retornarNumerosClicacos() === null) {
+      if (GuardarNumerosClicacos.retornarNumerosClicacos() == null) {
         numeroClicado = null;
       } else {
         numeroClicado =
@@ -54,8 +54,9 @@ class ChatController {
       div.empty();
 
       let conversas = ChatRequisicoesAjax.carregarConversas(ip_servidor);
+      console.log(conversas);
+
       InserirUltimasMensagens.inserirUltimasMensagens(conversas);
-      //this.inserirUltimasMensagens(conversas);
 
       BDnotificacoes = ChatRequisicoesAjax.contarNotificacoes(ip_servidor);
 

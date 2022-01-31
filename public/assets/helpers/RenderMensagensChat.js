@@ -130,5 +130,9 @@ class RenderMensagensChat {
     if (origem == "wppMessage") {
       ExecutarAudioRecebimento.executarAudioRecebimento();
     }
+
+    MostrarEsconderOpcoes.mostrarEsconderOpcoes();
+    CopiarMensagemChat.copiarmensagemChat();
+    ResponderMensagemChat.responderMensagemChat();
   }
 }
