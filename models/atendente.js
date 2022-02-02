@@ -116,7 +116,7 @@ class Atendente {
   inserirPrimeiroAtendente() {
     return new Promise((resolve, reject) => {
       try {
-        const sql = `INSERT INTO atendentes (nome, email, senha, usuario) VALUES ( 'admin', 'admin@admin', 'admin4521', 'admin')`;
+        const sql = `INSERT INTO atendentes (nome, email, senha, usuario, nivel_acesso) VALUES ( 'admin', 'admin@admin', 'admin4521', 'admin', 'admin')`;
         conexao.query(sql, (erro, resultados) => {
           if (erro) {
             console.log(erro);

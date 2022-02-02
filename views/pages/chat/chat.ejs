@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btnTransferir">Transferir</button>
+                                <button type="button" class="btn btn-primary" id="btnTransferir" onclick="chatController.transferirAtendimento()">Transferir</button>
                                 <button type="button" class="btn btn-secondary btnCancelar"
                                     data-bs-dismiss="modal">Cancelar</button>
 
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown">
+                <div class="dropdown" onclick="chatController.carregarInformacoesClienteModal()">
                     <i class="fas fa-ellipsis-v ms-2 me-2 ps-2 pe-2 pt-1 pb-1" data-bs-toggle="dropdown"
                         id="dropdownMenuButton1" aria-expanded="false"></i>
 
@@ -256,7 +256,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="salvarInfoCliente">Salvar</button>
+                                <button type="button" class="btn btn-primary" id="salvarInfoCliente" onclick="chatController.atualizarInformacoesCliente()">Salvar</button>
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
                             </div>
@@ -314,7 +314,7 @@
                             <!--  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Encontre o atendimento em andamento"> -->
 
                             <div class="col-10 d-flex flex-column" style=" height: 20px;">
-                                <input type="text" name="texto" id="buscar" disabled placeholder="Digite sua mensagem">
+                                <input type="text" name="texto" id="buscar" disabled placeholder="Digite sua mensagem" required>
 
                                 <!--  <textarea id="textarea" name="texto"></textarea> -->
                             </div>

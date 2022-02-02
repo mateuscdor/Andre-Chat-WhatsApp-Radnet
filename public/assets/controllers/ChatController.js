@@ -8,6 +8,8 @@ class ChatController {
     this.ip_servidor = ip_servidor;
     this.conversas = ChatRequisicoesAjax.carregarConversas(this.ip_servidor);
     InserirUltimasMensagens.inserirUltimasMensagens(this.conversas);
+    this.botoesTransferirAtendimento();
+    this.removerAvisoModalTransferir();
   }
 
   conectarSocketIo(ip_servidor) {
@@ -312,7 +314,282 @@ class ChatController {
     });
   }
 
+  botoesTransferirAtendimento() {
+    let btnPessoa = document.querySelector("#botaoPessoa");
+    let btnDepartamento = document.querySelector("#botaoDepartamento");
+
+    let modalPessoa = document.querySelector(".modalPessoa");
+    let modalDepartamento = document.querySelector(".modalDepartamento");
+
+    let departamentos = ChatRequisicoesAjax.buscarDepartamento(
+      this.ip_servidor
+    );
+    let atendentes = ChatRequisicoesAjax.buscarAtendentesDisponiveis(
+      this.ip_servidor
+    );
+
+    let templatePessoa =
+      RenderTransferirAtendimentoPessoa.renderTransferirAtendimentoPessoa();
+
+    let templateDepartamento =
+      RenderTransferirAtendimentoDepartamento.renderTransferirAtendimentoDepartamento();
+
+    $(document).ready(function () {
+      $(modalPessoa).append(templatePessoa);
+      let selectAtendentes = document.querySelector("#inputGroupSelect01");
+
+      for (let index = 0; index < atendentes.length; index++) {
+        $(selectAtendentes).append(
+          `<option value="${atendentes[index].nome}">${atendentes[index].nome}  - ${atendentes[index].nivel_acesso}</option>`
+        );
+      }
+      ("");
+    });
+
+    btnPessoa.addEventListener("click", () => {
+      if (!btnPessoa.classList.contains("btn-primary")) {
+        btnPessoa.classList.remove("btn-light");
+        btnPessoa.classList.add("btn-primary");
+
+        btnDepartamento.classList.remove("btn-primary");
+        btnDepartamento.classList.add("btn-light");
+
+        $(modalPessoa).append(templatePessoa);
+        $(".templateDepartamento").remove();
+
+        let selectAtendentes = document.querySelector("#inputGroupSelect01");
+
+        for (let index = 0; index < atendentes.length; index++) {
+          $(selectAtendentes).append(
+            `<option value="${atendentes[index].nome}">${atendentes[index].nome}  - ${atendentes[index].nivel_acesso}</option>`
+          );
+        }
+      }
+    });
+
+    btnDepartamento.addEventListener("click", () => {
+      if (!btnDepartamento.classList.contains("btn-primary")) {
+        btnDepartamento.classList.remove("btn-light");
+        btnDepartamento.classList.add("btn-primary");
+
+        btnPessoa.classList.remove("btn-primary");
+        btnPessoa.classList.add("btn-light");
+
+        $(modalDepartamento).append(templateDepartamento);
+        $(".templatePessoa").remove();
+
+        let selectDepartamentos = document.querySelector("#inputGroupSelect01");
+
+        for (let index = 0; index < departamentos.length; index++) {
+          $(selectDepartamentos).append(
+            `<option value="${departamentos[index].departamento}">${departamentos[index].departamento} </option>`
+          );
+        }
+      }
+    });
+  }
+
+  transferirAtendimento() {
+    let btnTransferir = document.querySelector("#btnTransferir");
+    let aviso = document.querySelector(".avisoPreencher");
+    let avisoColocar = `
+    <p class="text-center bg-danger text-light p-1" id="avisoPreencher">
+    <strong>Preencha com a Pesssoa/Departamento para transferência</strong>
+    </p>
+    `;
+
+    btnTransferir.addEventListener("click", () => {
+      let select = $("#inputGroupSelect01 :selected").val();
+      let mensagem = $("#mensagemTransferencia").val();
+
+      if (select == "") {
+        if (aviso.children.length === 0) {
+          $(aviso).append(avisoColocar);
+        } else {
+          console.log("contem aviso");
+        }
+      } else {
+        let atendimento = {
+          cliente: GuardarNumerosClicacos.retornarNumerosClicacos().cliente,
+          requerente:
+            GuardarNumerosClicacos.retornarNumerosClicacos().conectado,
+          destino: select,
+          mensagem: mensagem,
+          status: "aberta",
+        };
+
+        ChatRequisicoesAjax.criarTransferenciaAtendimentoAjax(
+          this.ip_servidor,
+          atendimento
+        );
+
+        $("#exampleModal3").modal("hide");
+        toastr.success("Transferencia feita com sucesso");
+      }
+
+      //essa funcionalidade está enviando varios avisos devido ao fato de ter varios selects com mesmo id
+    });
+  }
+
+  removerAvisoModalTransferir() {
+    let aviso = document.querySelector(".avisoPreencher");
+
+    document.querySelectorAll(".btnCancelar").forEach((item) => {
+      item.addEventListener("click", () => {
+        $(aviso).empty();
+        $("#inputGroupSelect01").prop("selectedIndex", 0);
+      });
+    });
+  }
+
+  carregarInformacoesClienteModal() {
+    let perfilCliente = document.querySelector("#perfilCliente");
+
+    perfilCliente.addEventListener("click", () => {
+      let infoCliente = ChatRequisicoesAjax.pesquisarEnderecoClienteAjax(
+        this.ip_servidor,
+        GuardarNumerosClicacos.retornarNumerosClicacos().cliente
+      );
+
+      console.log("ok");
+
+      if (!infoCliente.length) {
+        let nomeCliente = (document.querySelector(
+          "[name='nomeCliente']"
+        ).value = GuardarNumerosClicacos.retornarNumerosClicacos().cliente);
+
+        let contatoCliente = (document.querySelector(
+          "[name='contatoCliente']"
+        ).value = GuardarNumerosClicacos.retornarNumerosClicacos().cliente);
+      } else {
+        console.log(infoCliente[0]);
+
+        let endereco = ChatRequisicoesAjax.pesquisarEnderecoAjax(
+          this.ip_servidor,
+          infoCliente[0].id_endereco
+        );
+
+        document.querySelector("[name='cepCliente']").value = endereco[0].cep;
+        document.querySelector("[name='bairroCliente']").value =
+          endereco[0].bairro;
+        document.querySelector("[name='cidadeCliente']").value =
+          endereco[0].cidade;
+        document.querySelector("[name='complementoCliente']").value =
+          endereco[0].complemento;
+        document.querySelector("[name='estadoCliente']").value =
+          endereco[0].estado;
+        document.querySelector("[name='logradouroCliente']").value =
+          endereco[0].logradouro;
+        document.querySelector("[name='numeroCliente']").value =
+          endereco[0].numero;
+        document.querySelector("[name='paisCliente']").value = endereco[0].pais;
+        console.log(endereco);
+
+        let cliente = ChatRequisicoesAjax.pesquisarClienteAjax(
+          this.ip_servidor,
+          infoCliente[0].id_cliente
+        );
+
+        console.log(cliente);
+
+        document.querySelector("[name='nomeCliente']").value = cliente[0].nome;
+        document.querySelector("[name='contatoCliente']").value =
+          cliente[0].contato;
+        document.querySelector("[name='segundoContatoCliente']").value =
+          cliente[0].segundoContato;
+        document.querySelector("[name='emailCliente']").value =
+          cliente[0].email;
+        document.querySelector("[name='empresaCliente']").value =
+          cliente[0].empresa;
+        document.querySelector("[name='anotacoesCliente']").value =
+          cliente[0].anotacoes;
+
+        console.log(cliente);
+      }
+    });
+  }
+
+  atualizarInformacoesCliente() {
+    let modalInfoCliente = document.querySelector("#salvarInfoCliente");
+
+    modalInfoCliente.addEventListener("click", () => {
+      let gravarCliente = {
+        nome: $("[name='nomeCliente']").val(),
+        segundoContato: $("[name='segundoContatoCliente']").val(),
+        email: $("[name='emailCliente']").val(),
+        empresa: $("[name='empresaCliente']").val(),
+        anotacoes: $("[name='anotacoesCliente']").val(),
+      };
+
+      let cliente = {
+        nome: $("[name='nomeCliente']").val(),
+        contato: $("[name='contatoCliente']").val(),
+        segundoContato: $("[name='segundoContatoCliente']").val(),
+        email: $("[name='emailCliente']").val(),
+        empresa: $("[name='empresaCliente']").val(),
+        anotacoes: $("[name='anotacoesCliente']").val(),
+      };
+
+      let gravarEndereco = {
+        cep: $("[name='cepCliente']").val(),
+        logradouro: $("[name='logradouroCliente']").val(),
+        numero: $("[name='numeroCliente']").val(),
+        bairro: $("[name='bairroCliente']").val(),
+        complemento: $("[name='complementoCliente']").val(),
+        cidade: $("[name='cidadeCliente']").val(),
+        estado: $("[name='estadoCliente']").val(),
+        pais: $("[name='paisCliente']").val(),
+      };
+
+      let infoCliente = ChatRequisicoesAjax.pesquisarEnderecoClienteAjax(
+        this.ip_servidor,
+        cliente.contato
+      );
+
+      if (!infoCliente.length) {
+        let idEndereco = ChatRequisicoesAjax.criarEnderecoAjax(
+          this.ip_servidor,
+          gravarEndereco
+        );
+
+        cliente.id_endereco = idEndereco.insertId;
+
+        let idCliente = ChatRequisicoesAjax.criarClienteAjax(
+          this.ip_servidor,
+          cliente
+        );
+
+        ChatRequisicoesAjax.criarClienteEnderecoAjax(
+          ip_servidor,
+          idCliente.insertId,
+          idEndereco.insertId,
+          cliente.contato
+        );
+
+        $("#exampleModal5").modal("hide");
+      } else {
+        gravarCliente.id_endereco = infoCliente[0].id_endereco;
+
+        ChatRequisicoesAjax.atualizarClienteAjax(
+          ip_servidor,
+          infoCliente[0].id_cliente,
+          gravarCliente
+        );
+
+        ChatRequisicoesAjax.atualizarEnderecoAjax(
+          ip_servidor,
+          infoCliente[0].id_endereco,
+          gravarEndereco
+        );
+
+        $("#exampleModal5").modal("hide");
+      }
+    });
+  }
+
   retornarSocket() {
     return this.socket;
   }
+
+  //dar continuidade a parte de carregamento de informações do cliente
 }
