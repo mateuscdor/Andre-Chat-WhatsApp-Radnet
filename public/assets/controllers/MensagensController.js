@@ -34,7 +34,7 @@ class MensagensController {
     $(this.section).empty();
     $(this.section).append(RenderMensagens.renderModelos());
 
-    let mensagens = PegarTodasMensagensSistema.pegarMensagens(ip_servidor);
+    let mensagens = MensagensRequisicoesAjax.pegarMensagens(ip_servidor);
     console.log(mensagens);
     let mensagensTabela = document.querySelector(".mensagensTabela");
 

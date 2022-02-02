@@ -1,3 +1,4 @@
 .env
 tokens/
 node_modules
+public/assets/config/config.js

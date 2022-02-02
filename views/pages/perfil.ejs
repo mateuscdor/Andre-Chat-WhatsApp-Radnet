@@ -1,195 +1,259 @@
 <%- include('../layout-header'); -%>
 
-    <div class="row justify-content-center">
-
-        <div class="col-10">
-
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-3">
-                                <div class="p-3 mt-3 ">
-                                    <h1>Atendentes</h1>
-                                    <p>Controle os usuários que têm acesso à sua empresa!</p>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <img src="assets/img/user.png" width="120" height="120">
-                                </div>
-
-                            </div>
-                            <div class="col-xl-9">
-                                <div class="row p-3 mt-3 d-flex justify-content-between">
-                                    <div class="col-5 ">
-                                        <h2>Gerenciando <%= usuario.nome %>
-                                        </h2>
-                                    </div>
-                                    <div class="col-5 d-flex justify-content-end align-items-center">
-                                        <a href="/atendentes"> <button class="btn btn-primary btn-sm"><i
-                                                    class="fas fa-arrow-left me-1"></i>
-                                                Ir para a lista de atendentes</button></a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Nome</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                placeholder="<%= usuario.nome %>" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Sobrenome</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                placeholder="<%= usuario.sobrenome %>" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">E-mail</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                placeholder="<%= usuario.email %>" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text" for="inputGroupFile01">Upload</label>
-                                            <input type="file" class="form-control" id="inputGroupFile01">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Senha</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Nível de acesso</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                aria-describedby="basic-addon1"
-                                                placeholder="<%= usuario.nivel_acesso %>">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Status</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                aria-describedby="basic-addon1" placeholder="<%= usuario.status %>">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <h1>Encaminhamento de mensagens (siga-me)</h1>
-                                    <p>Seja notificado sempre que algum atendimento for transferido para você, de acordo
-                                        com a opção selecionada</p>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Nº WhatsApp</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Receber notificacões</span>
-                                            <input type="text" class="form-control" aria-label="Username"
-                                                aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row d-flex justify-content-between">
-                                    <div class="col d-flex justify-content-start bg">
-
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
-                                            Excluir
-                                            atendente
-                                        </button>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Confiarmação de
-                                                            exclusão</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Realmente deseja excluir o atendente <%= id %>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger excluir"
-                                                            id="<%= id %>"
-                                                            onclick="atendenteController.excluirAtendente(event,'<%= id %>')">Excluir
-                                                            Atendente</button>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-                                    </div>
-                                    <div class="col d-flex justify-content-end">
-                                        <button class="btn btn-success"><i class="fas fa-edit pe-1"></i>
-                                            Atualizar</button>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
+<div class="row justify-content-center">
+  <div class="col-10">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-3">
+              <div class="p-3 mt-3">
+                <h1>Atendentes</h1>
+                <p>Controle os usuários que têm acesso à sua empresa!</p>
+              </div>
+              <div class="d-flex justify-content-center">
+                <img src="assets/img/user.png" width="120" height="120" />
+              </div>
             </div>
-            <!-- /.content-wrapper -->
+            <div class="col-xl-9">
+              <div class="row p-3 mt-3 d-flex justify-content-between">
+                <div class="col-5">
+                  <h2>Gerenciando <%= usuario.nome %></h2>
+                </div>
+                <div
+                  class="col-5 d-flex justify-content-end align-items-center"
+                >
+                  <a href="/atendentes">
+                    <button class="btn btn-primary btn-sm">
+                      <i class="fas fa-arrow-left me-1"></i> Ir para a lista de
+                      atendentes
+                    </button></a
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Nome</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      placeholder="<%= usuario.nome %>"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Sobrenome</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      placeholder="<%= usuario.sobrenome %>"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >E-mail</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      placeholder="<%= usuario.email %>"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupFile01"
+                      >Upload</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="inputGroupFile01"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Senha</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Nível de acesso</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      placeholder="<%= usuario.nivel_acesso %>"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Status</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      placeholder="<%= usuario.status %>"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <h1>Encaminhamento de mensagens (siga-me)</h1>
+                <p>
+                  Seja notificado sempre que algum atendimento for transferido
+                  para você, de acordo com a opção selecionada
+                </p>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Nº WhatsApp</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Receber notificacões</span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row d-flex justify-content-between">
+                <div class="col d-flex justify-content-start bg">
+                  <!-- Button trigger modal -->
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Excluir atendente
+                  </button>
+
+                  <!-- Modal -->
+                  <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">
+                            Confiarmação de exclusão
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          Realmente deseja excluir o atendente <%= id %>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-danger excluir"
+                            id="<%= id %>"
+                            onclick="atendenteController.excluirAtendente(event,'<%= id %>')"
+                          >
+                            Excluir Atendente
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col d-flex justify-content-end">
+                  <button class="btn btn-success">
+                    <i class="fas fa-edit pe-1"></i> Atualizar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
+        <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-    <script type="text/javascript">
-        const ip_servidor = "<%= ip_servidor %>";
-    </script>
-    <script src="assets/controllers/AtendenteController.js"></script>
-    <script src="assets/controllers/requisicoesAjax/AtendenteRequisicoesAjax.js"></script>
-    <script>
-        let atendenteController = new AtendenteController();
-    </script>
+    <!-- /.content-wrapper -->
+  </div>
+</div>
 
-    <%- include('../layout-footer'); -%>
+<script src="assets/config/config.js"></script>
+<script src="assets/controllers/AtendenteController.js"></script>
+<script src="assets/controllers/requisicoesAjax/AtendenteRequisicoesAjax.js"></script>
+<script>
+  let atendenteController = new AtendenteController();
+</script>
+
+<%- include('../layout-footer'); -%>

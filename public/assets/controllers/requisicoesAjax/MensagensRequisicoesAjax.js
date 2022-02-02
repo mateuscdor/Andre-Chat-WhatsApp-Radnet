@@ -1,4 +1,4 @@
-class PegarTodasMensagensSistema {
+class MensagensRequisicoesAjax {
   static pegarMensagens(ip_servidor) {
     let mensagens = null;
     var settings = {
