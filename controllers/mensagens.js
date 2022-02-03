@@ -1,10 +1,11 @@
 const { buscarTodasMensagensSistema } = require("../models/mensagensSistema");
+const Auth = require("../middlewares/auth");
 require("dotenv").config();
 
 module.exports = (app) => {
-  app.get("/mensagens", async function (req, res) {
+  app.get("/mensagens", Auth, async function (req, res) {
     let ip_servidor = process.env.IP_SERVIDOR;
-    res.render("pages/mensagens", { ip_servidor: ip_servidor });
+    res.render("pages/mensagens");
   });
 
   app.post("/pegarMensagensSistema", async function (req, res) {

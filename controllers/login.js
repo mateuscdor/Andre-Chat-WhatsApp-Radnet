@@ -19,22 +19,11 @@ module.exports = (app) => {
       if (!login.length) {
         res.redirect("/?erro=" + "nao foi possivel altenticar");
       } else {
-        funcoes.inserirUsuarioLogado(login);
-
-        let usuarioLogado = await Logados.pesquisarLogadoNome(login[0].nome);
-
-        if (!usuarioLogado.length) {
-          Logados.inserirUsuarioLogado({
-            atendente: usuarioLogando.nome,
-            status: "logado",
-            id_atendente: usuarioLogando.id,
-          });
-        } else {
-          Logados.mudarStatus({ status: "logado" }, usuarioLogado[0].atendente);
-        }
-
-        this.logado = { id: usuarioLogando.id, nome: usuarioLogando.nome };
         req.session.isAuth = true;
+
+        req.session.id_usuario = usuarioLogando.id;
+        req.session.nome = usuarioLogando.nome;
+        req.session.usuario = usuarioLogando.usuario;
 
         res.redirect("/home");
       }

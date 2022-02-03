@@ -28,7 +28,6 @@ class Canais {
             console.log(erro);
           }
           var canais = JSON.parse(JSON.stringify(resultados));
-          console.log(canais);
 
           resolve(canais);
         });
@@ -48,7 +47,6 @@ class Canais {
             console.log(erro);
           }
           var canais = JSON.parse(JSON.stringify(resultados));
-          console.log(canais);
 
           resolve(canais);
         });
@@ -119,7 +117,7 @@ class Canais {
             console.log(erro);
           }
           var canal = JSON.parse(JSON.stringify(resultados));
-          console.log(canal);
+
           resolve(canal);
         });
       } catch (error) {

@@ -1,15 +1,7 @@
-const isAuth = require("../middlewares/auth");
+const Auth = require("../middlewares/auth");
 
 module.exports = (app) => {
-  let logado = null;
-
-  app.get(
-    "/home",
-    /*isAuth,*/ function (req, res) {
-      res.render("pages/home", {
-        id: this.logado.id,
-        nome: this.logado.nome,
-      });
-    }
-  );
+  app.get("/home", Auth, function (req, res) {
+    res.render("pages/home");
+  });
 };

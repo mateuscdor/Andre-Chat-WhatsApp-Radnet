@@ -13,28 +13,14 @@ const mensagensSistema = require("../models/mensagensSistema");
 require("dotenv").config();
 
 module.exports = (app) => {
-  // Rota de carregar o chat
   app.get("/chat", async function (req, res) {
     console.log("api /chat");
-    // informações básicas para carregar o topo da aplicação vindas do dotenv
+
     let ip_servidor = process.env.IP_SERVIDOR;
 
-    /*
-    let usuario = funcoes.retornarUsuarioLogado();
-    console.log(usuario[0]);
-
-  
-    Atendente.buscarAtendente(process.env.ID_USUARIO);
-    let atendente = Atendente.retornarAtendente();
-    console.log(atendente);
-*/
-
     let todasNotificacoes = await Notificacao.contarNotificacoes();
-    console.log(todasNotificacoes);
 
     let canal = 1;
-    // passando as informações para o front
-    // rederizando o front pelo ejs
     res.render("pages/chat/index", {
       ip_servidor: ip_servidor,
       canal: canal,

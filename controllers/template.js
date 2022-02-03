@@ -11,18 +11,7 @@ module.exports = (app) => {
       if (err) throw err;
     });
 
-    funcoes.logout();
-    let logado = await funcoes.retornarUsuarioLogado();
-    console.log(logado);
-
-    if (logado === null) {
-      res.redirect("/");
-    } else {
-      console.log(logado);
-      Logados.mudarStatus({ status: "desconectado" }, logado[0].nome);
-
-      res.redirect("/");
-    }
+    res.redirect("/");
   });
 
   app.post("/conectar", async function (req, res) {
@@ -39,5 +28,13 @@ module.exports = (app) => {
     } else {
       res.send("Já existe um usuario cadastrado");
     }
+  });
+
+  app.get("/404", async function (req, res) {
+    res.render("pages/404");
+  });
+
+  app.get("/500", async function (req, res) {
+    res.render("pages/500");
   });
 };
