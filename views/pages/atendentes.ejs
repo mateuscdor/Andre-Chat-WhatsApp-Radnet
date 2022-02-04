@@ -23,7 +23,7 @@
                   <section class="col-lg-12 connectedSortable">
                       <!-- Custom tabs (Charts with tabs)-->
                       <div class="card">
-                          <div class="card-header bg-teal">
+                          <div class="card-header bg-dark">
                               <h3 class="card-title">
                                   <i class="fas fa-users mr-1"></i>
                                  Atendentes
@@ -33,7 +33,7 @@
                               <div class="container-fluid">
 
                                 <div class="row">
-                                  <div class="col-xl-3 bg-teal rounded-3">
+                                  <div class="col-xl-3 bg-secondary rounded-3">
                                     <div class="p-3 mt-3">
                                       <h1>Atendentes</h1>
                                       <p>Controle os usuários que têm acesso à sua empresa!</p>
@@ -214,7 +214,7 @@
                                       <% for(var i=0; i < atendente.length; i++) { %>
                       
                                       <div
-                                        class="p-4 mt-3 me-2 ms-2 mb-3 d-flex justify-content-center align-items-center text-center bg-teal rounded card-atendente"
+                                        class="p-4 mt-3 me-2 ms-2 mb-3 d-flex justify-content-center align-items-center text-center bg-success rounded card-atendente"
                                       >
                                         <div class="p-2">
                                           <img
@@ -227,7 +227,7 @@
                                           <p><%= atendente[i].nome %></p>
                                           <p><%= atendente[i].email %></p>
                                           <a href="/perfil/<%= atendente[i].id %>">
-                                            <button class="btn btn-success">
+                                            <button class="btn btn-light">
                                               <i class="fas fa-cog me-1"></i>
                                               Gerenciar
                                             </button>

@@ -35,7 +35,6 @@ module.exports = (app) => {
     funcoes.enviarMensagem(req.query);
     const mensagem = req.query;
     Chat.mensagem(mensagem);
-    console.log(req.query);
     res.status(200).json("mensagem enviada");
   });
 

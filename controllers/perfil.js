@@ -19,4 +19,10 @@ module.exports = (app) => {
       usuario: atendente[0],
     });
   });
+
+  app.post("/usuario-logado", async function (req, res) {
+    let atendente = await Atendente.buscarAtendente(req.session.id_usuario);
+    console.log(atendente);
+    res.status(200).json(atendente);
+  });
 };
