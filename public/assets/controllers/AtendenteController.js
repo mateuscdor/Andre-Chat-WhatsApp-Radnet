@@ -21,10 +21,4 @@ class AtendenteController {
 
     document.location.reload(true);
   }
-
-  excluirAtendente(event, id) {
-    AtendenteRequisicoesAjax.excluirAtendenteAjax(ip_servidor, id);
-
-    window.location.href = "/atendentes";
-  }
 }

@@ -1,6 +1,6 @@
 const Chat = require("../models/chat");
 const funcoes = require("../funcoes/funcoes");
-const Mensagens = require("../models/Mensagens");
+const Mensagens = require("../models/mensagens");
 const Atendente = require("../models/atendente");
 const Notificacao = require("../models/notificacoes");
 const Protocolos = require("../models/protocolos");

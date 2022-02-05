@@ -33,4 +33,19 @@ module.exports = (app) => {
     await Atendente.excluirAtendente(req.query.id);
     res.status(200).json("exclusao feito com sucesso");
   });
+
+  app.post("/atualizar-atendente", async function (req, res) {
+    atendenteAtualizar = {
+      nome: req.query.nome,
+      sobrenome: req.query.sobrenome,
+      email: req.query.email,
+      usuario: req.query.usuario,
+      senha: req.query.senha,
+      nivel_acesso: req.query.nivel_acesso,
+      status: req.query.status,
+    };
+    await Atendente.atualizarAtendente(atendenteAtualizar, req.query.id);
+
+    res.status(200).json("atualização feito com sucesso");
+  });
 };

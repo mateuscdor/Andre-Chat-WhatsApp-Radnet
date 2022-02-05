@@ -146,6 +146,17 @@ class Funcoes {
     }
   }
 
+  enviarDocumento(requisicao) {
+    console.log("functions enviarDocumento");
+    if (this.whatsapp) {
+      return this.whatsapp.sendDocument(
+        requisicao.phone,
+        requisicao.documento,
+        requisicao.nome
+      );
+    }
+  }
+
   inserirUsuarioLogado(usuario) {
     this.usuarioLogado = usuario;
   }

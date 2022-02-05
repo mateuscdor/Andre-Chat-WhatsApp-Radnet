@@ -31,4 +31,17 @@ class AtendenteRequisicoesAjax {
       console.log(response);
     });
   }
+
+  static atualizarAtendente(ip_servidor, atendente) {
+    var settings = {
+      url: `${ip_servidor}/atualizar-atendente?nome=${atendente.nome}&sobrenome=${atendente.sobrenome}&email=${atendente.email}&senha=${atendente.senha}&nivel_acesso=${atendente.nivel_acesso}&status=${atendente.status}&usuario=${atendente.usuario}&id=${atendente.id}`,
+      method: "POST",
+      timeout: 0,
+      async: false,
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  }
 }

@@ -33,14 +33,27 @@
                           <div class="card-body">
                               <div class="container-fluid">
                                 <div class="row">
-                                  <div class="col-xl-3 bg-secondary rounded-3">
-                                    <div class="p-3 mt-3">
+                                  <div class="col-xl-3 bg-secondary rounded-3 ">
+                                    <div class="p-3">
                                       <h1>Atendentes</h1>
                                       <p>Controle os usuários que têm acesso à sua empresa!</p>
                                     </div>
-                                    <div class="d-flex justify-content-center">
-                                      <img src="assets/img/user.png" width="120" height="120" />
+                                    <div class="d-flex justify-content-center ">
+                                      <% if(usuario.caminho_avatar == null || usuario.caminho_avatar == "") { %>
+                                      <img src="assets/img/user.png" width="120" height="120" class="mt-5 mb-3" />
+                                      <% }else{ %>
+                                        <img src="<%= usuario.caminho_avatar %>" width="120" height="120" class="mt-5 mb-3" />
+                                        <% } %>
                                     </div>
+                                    <form method="post" enctype="multipart/form-data" action="/atualizar-avatar">
+                                      <div class="input mb-4 text-center">
+                                        <span class="input-text " id="basic-addon1"
+                                        >Upload avatar</span
+                                      >
+                                      <input type="file" class="form-control" id="inputGroupFile01" name="file">
+                                      <button type="submit" class="btn btn-sm btn-success mt-3">Atualizar avatar</button>
+                                    </div>
+                                  </form>
                                   </div>
                                   <div class="col-xl-9 pt-2 pb-2 ps-4 pe-3">
                                     <div class="row p-3 mt-3 d-flex justify-content-between">
@@ -60,28 +73,31 @@
                                     </div>
                                     <div class="row">
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1">Nome</span>
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1">Nome</span>
                                           <input
                                             type="text"
+                                            value="<%= usuario.nome %>"
                                             class="form-control"
                                             aria-label="Username"
-                                            placeholder="<%= usuario.nome %>"
+                                            
                                             aria-describedby="basic-addon1"
+                                            name="nome"
                                           />
                                         </div>
                                       </div>
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
                                             >Sobrenome</span
                                           >
                                           <input
                                             type="text"
                                             class="form-control"
                                             aria-label="Username"
-                                            placeholder="<%= usuario.sobrenome %>"
+                                            value="<%= usuario.sobrenome %>"
                                             aria-describedby="basic-addon1"
+                                            name="sobrenome"
                                           />
                                         </div>
                                       </div>
@@ -89,44 +105,50 @@
                       
                                     <div class="row">
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
                                             >E-mail</span
                                           >
                                           <input
                                             type="text"
                                             class="form-control"
                                             aria-label="Username"
-                                            placeholder="<%= usuario.email %>"
+                                            value="<%= usuario.email %>"
                                             aria-describedby="basic-addon1"
+                                            name="email"
                                           />
                                         </div>
                                       </div>
-                                      <div class="col">
-                                        <div class="input-group mb-3">
-                                          <label class="input-group-text" for="inputGroupFile01"
-                                            >Upload</label
-                                          >
-                                          <input
-                                            type="file"
-                                            class="form-control"
-                                            id="inputGroupFile01"
-                                          />
-                                        </div>
-                                      </div>
+                                 
                                     </div>
                       
                                     <div class="row">
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
-                                            >Senha</span
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
+                                            >Login</span
                                           >
                                           <input
                                             type="text"
+                                            value="<%= usuario.usuario %>"
+                                            class="form-control"
+                                            
+                                            aria-describedby="basic-addon1"
+                                            name="login"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
+                                            >Senha</span
+                                          >
+                                          <input
+                                            type="password"
                                             class="form-control"
                                             aria-label="Username"
                                             aria-describedby="basic-addon1"
+                                            name="senha"
                                           />
                                         </div>
                                       </div>
@@ -134,22 +156,24 @@
                       
                                     <div class="row">
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
                                             >Nível de acesso</span
                                           >
                                           <input
                                             type="text"
+                                            value="<%= usuario.nivel_acesso %>"
                                             class="form-control"
                                             aria-label="Username"
                                             aria-describedby="basic-addon1"
-                                            placeholder="<%= usuario.nivel_acesso %>"
+                                            
+                                            name="nivel_acesso"
                                           />
                                         </div>
                                       </div>
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
                                             >Status</span
                                           >
                                           <input
@@ -157,7 +181,8 @@
                                             class="form-control"
                                             aria-label="Username"
                                             aria-describedby="basic-addon1"
-                                            placeholder="<%= usuario.status %>"
+                                            value="<%= usuario.status %>"
+                                            name="status"
                                           />
                                         </div>
                                       </div>
@@ -173,8 +198,8 @@
                       
                                     <div class="row">
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
                                             >Nº WhatsApp</span
                                           >
                                           <input
@@ -186,8 +211,8 @@
                                         </div>
                                       </div>
                                       <div class="col">
-                                        <div class="input-group mb-3">
-                                          <span class="input-group-text" id="basic-addon1"
+                                        <div class="input mb-3">
+                                          <span class="input-text" id="basic-addon1"
                                             >Receber notificacões</span
                                           >
                                           <input
@@ -241,7 +266,7 @@
                                                   type="button"
                                                   class="btn btn-danger excluir"
                                                   id="<%= id %>"
-                                                  onclick="atendenteController.excluirAtendente(event,'<%= id %>')"
+                                                  onclick="perfilController.excluirAtendente(event,'<%= id %>')"
                                                 >
                                                   Excluir Atendente
                                                 </button>
@@ -258,10 +283,56 @@
                                         </div>
                                       </div>
                                       <div class="col d-flex justify-content-end">
-                                        <button class="btn btn-success">
+                                        <button class="btn btn-success"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal2">
                                           <i class="fas fa-edit pe-1"></i> Atualizar
                                         </button>
                                       </div>
+                                              <!-- Modal -->
+                                              <div
+                                              class="modal fade"
+                                              id="exampleModal2"
+                                              tabindex="-1"
+                                              aria-labelledby="exampleModalLabel"
+                                              aria-hidden="true"
+                                            >
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                      Confirmação de Atualização
+                                                    </h5>
+                                                    <button
+                                                      type="button"
+                                                      class="btn-close"
+                                                      data-bs-dismiss="modal"
+                                                      aria-label="Close"
+                                                    ></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    Realmente deseja atualizar o atendente <%= id %>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button
+                                                      type="button"
+                                                      class="btn btn-success excluir"
+                                                      id="<%= id %>"
+                                                      onclick="perfilController.atualizarAtendente(event,'<%= id %>')"
+                                                    >
+                                                      Atualizar Atendente
+                                                    </button>
+                                                    <button
+                                                      type="button"
+                                                      class="btn btn-secondary"
+                                                      data-bs-dismiss="modal"
+                                                    >
+                                                      Close
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
                                     </div>
                                   </div>
                                 </div>
@@ -283,41 +354,10 @@
   <!-- /.content-wrapper -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="assets/config/config.js"></script>
-<script src="assets/controllers/AtendenteController.js"></script>
 <script src="assets/controllers/requisicoesAjax/AtendenteRequisicoesAjax.js"></script>
+<script src="assets/controllers/PerfilController.js"></script>
 <script>
-  let atendenteController = new AtendenteController();
+  let perfilController = new PerfilController();
 </script>
 
 <%- include('../layout-footer'); -%>

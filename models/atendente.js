@@ -4,14 +4,13 @@ class Atendente {
   buscarAtendente(idAtendente) {
     return new Promise((resolve, reject) => {
       try {
-        const sql = `SELECT * FROM atendentes WHERE id = ${idAtendente}`;
+        const sql = `SELECT * FROM atendentes WHERE id = '${idAtendente}'`;
 
         conexao.query(sql, (erro, resultados) => {
           if (erro) {
             console.log(erro);
           }
           var atendenteJson = JSON.parse(JSON.stringify(resultados));
-
           resolve(atendenteJson);
         });
       } catch (error) {
@@ -124,6 +123,38 @@ class Atendente {
           var atendente = JSON.parse(JSON.stringify(resultados));
 
           resolve(atendente);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  atualizarAtendente(atendente, id) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `UPDATE atendentes SET ? WHERE id=${id}`;
+        conexao.query(sql, atendente, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          resolve(resultados);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  cadastrarAvatar(caminho, id) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `UPDATE atendentes SET caminho_avatar='${caminho}' WHERE id='${id}'`;
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          resolve(resultados);
         });
       } catch (error) {
         reject(error);

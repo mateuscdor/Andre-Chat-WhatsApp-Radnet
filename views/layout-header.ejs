@@ -168,7 +168,7 @@
               />
             </div>
             <div class="info">
-              <a href="#" class="d-block">User Radnet Telecom</a>
+              <a href="#" class="d-block" id="usuarioSistema"></a>
             </div>
           </div>
 
@@ -185,23 +185,23 @@
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     DASHBOARD
-                    <span class="right badge badge-danger">New</span>
+                    <!--  <span class="right badge badge-danger">New</span>-->
                   </p>
                 </a>
               </li>
 
               <li class="nav-header">EMPRESA</li>
-              <li class="nav-item bg-danger">
-                <a href="pages/calendar.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/dados-da-empresa" class="nav-link">
                   <i class="nav-icon fas fa-building"></i>
                   <p>
                     Dados da empresa
-                    <span class="badge badge-info right">2</span>
+                    <!-- <span class="badge badge-info right">2</span>-->
                   </p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/calendar.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/financeiro" class="nav-link">
                   <i class="nav-icon fas fa-money-bill-alt"></i>
                   <p>Financeiro</p>
                 </a>
@@ -212,14 +212,14 @@
                   <p>Atendentes</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/calendar.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/departamento" class="nav-link">
                   <i class="nav-icon fas fa-layer-group"></i>
                   <p>Departamento</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/calendar.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/ajustes" class="nav-link">
                   <i class="nav-icon fas fa-cog"></i>
                   <p>Ajustes</p>
                 </a>
@@ -237,14 +237,14 @@
                   <p>Mensagens</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/enviar-agendar" class="nav-link">
                   <i class="nav-icon fas fa-clock"></i>
                   <p>Enviar / Agendar Mensagem</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/automacao" class="nav-link">
                   <i class="nav-icon fas fa-robot"></i>
                   <p>Automações</p>
                 </a>
@@ -255,21 +255,21 @@
                   <p>Atendimento</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/auditoria" class="nav-link">
                   <i class="nav-icon fas fa-history"></i>
                   <p>Auditoria</p>
                 </a>
               </li>
               <li class="nav-header">INTEGRAÇÕES</li>
-              <li class="nav-item bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/gerenciar" class="nav-link">
                   <i class="nav-icon fas fa-rocket"></i>
                   <p>Gerenciar</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/chave-de-acesso" class="nav-link">
                   <i class="nav-icon fas fa-lock"></i>
                   <p>Chaves para acesso</p>
                 </a>
@@ -281,14 +281,14 @@
                   <p>Meu perfil</p>
                 </a>
               </li>
-              <li class="nav-item bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item">
+                <a href="/status-do-servidor" class="nav-link">
                   <i class="nav-icon fas fa-sync"></i>
                   <p>Status dos servidores</p>
                 </a>
               </li>
-              <li class="nav-item mb-4 bg-danger">
-                <a href="pages/widgets.html" class="nav-link">
+              <li class="nav-item mb-4">
+                <a href="/suporte" class="nav-link">
                   <i class="nav-icon fas fa-question"></i>
                   <p>Suporte</p>
                 </a>
@@ -299,7 +299,9 @@
         </div>
         <!-- /.sidebar -->
       </aside>
+      <script src="assets/config/config.js"></script>
       <script src="assets/controllers/HeaderController.js"></script>
+      <script src="assets/controllers/requisicoesAjax/HeaderRequisicoesAjax.js"></script>
       <script>
         let headerController = new HeaderController();
       </script>

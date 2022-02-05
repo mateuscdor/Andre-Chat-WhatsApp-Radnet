@@ -51,6 +51,7 @@ class Tabelas {
         nivel_acesso varchar(255),
         status varchar(255),
         usuario varchar(255),
+        caminho_avatar varchar(255),
         PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {
