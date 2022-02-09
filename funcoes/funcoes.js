@@ -20,118 +20,123 @@ class Funcoes {
       try {
         console.log("functions conectar");
 
-        new superchats.create(
-          sessao,
+        superchats
+          .create(
+            sessao,
 
-          {
-            license: process.env.SUPER_TOKEN,
-            welcomeScreen: false,
-            connectTest: 10_000,
-            logQr: false,
-          },
-          (base64QR) => {
-            this.base64QR = base64QR;
-            if (base64QR) {
-              resolve(base64QR);
+            {
+              license: process.env.SUPER_TOKEN,
+              multidevice: true,
+              welcomeScreen: false,
+              connectTest: 10_000,
+              logQr: false,
+            },
+            (base64QR) => {
+              this.base64QR = base64QR;
+              if (base64QR) {
+                resolve(base64QR);
+              }
+            },
+            async (statusSession) => {
+              console.log("Status Session:", statusSession);
+              if (statusSession.response == "isLogged") {
+                console.log("entrou aqui");
+                await Canais.editarStatus("conectado", fone);
+                this.status = "conectado";
+                resolve("conectado");
+              }
+              if (statusSession.response == "isConnected") {
+                console.log("entrou aqui");
+                await Canais.editarStatus("conectado", fone);
+                this.status = "conectado";
+                resolve("conectado");
+              }
             }
-          },
-          async (statusSession) => {
-            console.log("Status Session:", statusSession);
-            if (statusSession.response == "isLogged") {
-              console.log("entrou aqui");
-              await Canais.editarStatus("conectado", fone);
-              this.status = "conectado";
-              resolve("conectado");
+          )
+          .then(async (client) => {
+            this.whatsapp = client;
+
+            /*
+            if (this.status == "conectado") {
+              client.forceStatusOn();
             }
-            if (statusSession.response == "isConnected") {
-              console.log("entrou aqui");
-              await Canais.editarStatus("conectado", fone);
-              this.status = "conectado";
-              resolve("conectado");
-            }
-          }
-        ).then(async (client) => {
-          this.whatsapp = client;
+            */
 
-          if (this.status == "conectado") {
-            client.forceStatusOn();
-          }
+            await client.onMessage(async (event) => {
+              console.log(event);
 
-          await client.onMessage(async (event) => {
-            console.log(event);
+              let dataAtual = moment
+                .unix(event.timestamp)
+                .format("YYYY-MM-DD HH:mm:ss");
 
-            let dataAtual = moment
-              .unix(event.timestamp)
-              .format("YYYY-MM-DD HH:mm:ss");
+              let dataProtocolo = moment
+                .unix(event.timestamp)
+                .format("DDMMYYYYHHmmsss");
 
-            let dataProtocolo = moment
-              .unix(event.timestamp)
-              .format("DDMMYYYYHHmmsss");
+              let protocolo = await Protocolo.buscarProtocolos(event.from);
 
-            let protocolo = await Protocolo.buscarProtocolos(event.from);
+              if (!protocolo.length) {
+                await Protocolo.criarProtocolo({
+                  nome: event.session,
+                  contato: event.from,
+                  email: null,
+                  empresa: null,
+                  protocolo: dataProtocolo,
+                  situacao: "aberto",
+                  canal: event.device,
+                });
+              }
 
-            if (!protocolo.length) {
-              await Protocolo.criarProtocolo({
-                nome: event.session,
-                contato: event.from,
-                email: null,
-                empresa: null,
-                protocolo: dataProtocolo,
-                situacao: "aberto",
-                canal: event.device,
+              if (!protocolo.length) {
+                const mensagem = {
+                  session: event.session,
+                  from_number: event.from,
+                  to_number: event.device,
+                  content: event.content,
+                  type: "chat",
+                  created_at: dataAtual,
+                  id_protocolo: dataProtocolo,
+                  id_mensagem: event.id,
+                };
+
+                Chat.mensagem(mensagem);
+              } else {
+                const mensagem = {
+                  session: event.session,
+                  from_number: event.from,
+                  to_number: event.device,
+                  content: event.content,
+                  type: "chat",
+                  created_at: dataAtual,
+                  id_protocolo: protocolo[0].protocolo,
+                  id_mensagem: event.id,
+                };
+
+                Chat.mensagem(mensagem);
+              }
+
+              Notificacoes.inserirNotificacao({ fone: event.from });
+
+              this.io.sockets.emit("wppMessage", {
+                author: event.from,
+                message: event.content,
+                horario: event.dataAtual,
+                id_mensagem: event.id,
               });
-            }
+            });
 
-            if (!protocolo.length) {
-              const mensagem = {
-                session: event.session,
-                from_number: event.from,
-                to_number: event.device,
-                content: event.content,
-                type: "chat",
-                created_at: dataAtual,
-                id_protocolo: dataProtocolo,
-                id_mensagem: event.id,
-              };
+            await client.onAck((event) => {
+              console.log(event);
+            });
 
-              Chat.mensagem(mensagem);
-            } else {
-              const mensagem = {
-                session: event.session,
-                from_number: event.from,
-                to_number: event.device,
-                content: event.content,
-                type: "chat",
-                created_at: dataAtual,
-                id_protocolo: protocolo[0].protocolo,
-                id_mensagem: event.id,
-              };
+            await client.onPresence((event) => {
+              console.log(event);
+            });
 
-              Chat.mensagem(mensagem);
-            }
-
-            Notificacoes.inserirNotificacao({ fone: event.from });
-
-            this.io.sockets.emit("wppMessage", {
-              author: event.from,
-              message: event.content,
-              horario: event.dataAtual,
-              id_mensagem: event.id,
+            await client.onDelete((event) => {
+              console.log(event);
             });
           });
-
-          await client.onAck((event) => {
-            console.log(event);
-          });
-
-          await client.onPresence((event) => {
-            console.log(event);
-          });
-
-          await client.onDelete((event) => {
-            console.log(event);
-          });
-        });
       } catch (error) {
         reject(error);
       }
