@@ -9,9 +9,6 @@
         });
         let notificacoes = document.querySelector(".notificacoes");
 
-
-
-
         $('.notificacoes').click(function () {
 
             if (notificacoes.classList.contains("toastrDefaultSuccess")) {
@@ -23,7 +20,6 @@
                 notificacoes.classList.add("fa-bell-slash");
                 notificacoes.classList.remove("text-primary");
                 notificacoes.classList.add("text-danger");
-
 
             } else {
 
@@ -39,17 +35,6 @@
 
         });
 
-
-        /*
-                $('.toastrDefaultSuccess').click(function () {
-                    toastr.success('Notificações sonoras ativadas')
-        
-        
-                });
-                $('.toastrDefaultInfo').click(function () {
-                    toastr.info('Notificações sonoras desativadas')
-                });
-                */
     });
 </script>
 <script src="assets/config/config.js"></script>
@@ -62,12 +47,10 @@
 <script src="assets/helpers/InserirUltimasMensagens.js"></script>
 <script src="assets/helpers/ExecutarAudioRecebimento.js"></script>
 <script src="assets/helpers/RenderNotificacaoChat.js"></script>
-<script src="assets/helpers/MostrarEsconderOpcoes.js"></script>
-<script src="assets/helpers/CopiarMensagemChat.js"></script>
-<script src="assets/helpers/ResponderMensagemChat.js"></script>
 <script src="assets/helpers/RenderResponder.js"></script>
 <script src="assets/helpers/RenderTransferirAtendimentoDepartamento.js"></script>
 <script src="assets/helpers/RenderTransferirAtendimentoPessoa.js"></script>
+
 
 
 <script>
@@ -93,14 +76,7 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script> -->
-<!--
-<script>
-    $('#textarea').emojioneArea({
-        pickerPosition: 'top'
-    })
-</script>
--->
+
 </body>
 
 </html>

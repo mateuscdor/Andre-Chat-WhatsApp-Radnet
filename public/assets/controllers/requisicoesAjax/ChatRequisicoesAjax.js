@@ -60,6 +60,21 @@ class ChatRequisicoesAjax {
     return canais;
   }
 
+  static buscarClienteFone(ip_servidor, fone) {
+    let cliente = null;
+    var settings = {
+      url: `${ip_servidor}/pesquisarClienteFone?fone=${fone}`,
+      method: "POST",
+      timeout: 0,
+      async: false,
+    };
+
+    $.ajax(settings).done(function (response) {
+      cliente = response;
+    });
+    return cliente;
+  }
+
   static buscarDepartamento(ip_servidor) {
     let departamentos = null;
 
@@ -231,8 +246,10 @@ class ChatRequisicoesAjax {
     message,
     type,
     created_at,
-    protocoloNumero
+    protocoloNumero,
+    id_mensagem
   ) {
+    let respostaMensagem = null;
     var settings = {
       url: `${ip_servidor}/enviar?session=${session}&from_number=${author}&to_number=${to_number}&content=${message}&type=${type}&created_at=${created_at}&id_protocolo=${protocoloNumero}`,
       method: "POST",
@@ -241,8 +258,10 @@ class ChatRequisicoesAjax {
     };
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      respostaMensagem = response;
     });
+
+    return respostaMensagem;
   }
 
   static enviarMensagemInterna(

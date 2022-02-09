@@ -70,8 +70,6 @@ class Funcoes {
 
             let protocolo = await Protocolo.buscarProtocolos(event.from);
 
-            console.log(protocolo);
-
             if (!protocolo.length) {
               await Protocolo.criarProtocolo({
                 nome: event.session,
@@ -93,6 +91,7 @@ class Funcoes {
                 type: "chat",
                 created_at: dataAtual,
                 id_protocolo: dataProtocolo,
+                id_mensagem: event.id,
               };
 
               Chat.mensagem(mensagem);
@@ -105,6 +104,7 @@ class Funcoes {
                 type: "chat",
                 created_at: dataAtual,
                 id_protocolo: protocolo[0].protocolo,
+                id_mensagem: event.id,
               };
 
               Chat.mensagem(mensagem);
@@ -116,9 +116,8 @@ class Funcoes {
               author: event.from,
               message: event.content,
               horario: event.dataAtual,
+              id_mensagem: event.id,
             });
-
-            console.log(mensagem);
           });
 
           await client.onAck((event) => {
@@ -140,10 +139,33 @@ class Funcoes {
   }
 
   enviarMensagem(message) {
-    console.log("functions enviarMensagem");
-    if (this.whatsapp) {
-      return this.whatsapp.sendText(message.to_number, message.content);
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("functions enviarMensagem");
+
+        resolve(this.whatsapp.sendText(message.to_number, message.content));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  encaminharMensagem(message) {
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("functions encaminhar Mensagem");
+
+        resolve(
+          this.whatsapp.forwardMessage(
+            message.number_from,
+            message.id,
+            message.number_to
+          )
+        );
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   enviarDocumento(requisicao) {
@@ -193,6 +215,7 @@ class Funcoes {
             message: message.content,
             data: message.created_at,
             type: message.type,
+            id_mensagem: message.id_mensagem,
           });
 
           console.log(mensagem[i]);

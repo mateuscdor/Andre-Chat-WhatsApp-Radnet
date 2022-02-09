@@ -30,12 +30,16 @@ module.exports = (app) => {
   });
 
   // Rota para enviar mensagens do front
-  app.post("/enviar", function (req, res) {
+  app.post("/enviar", async function (req, res) {
     console.log("api /enviar");
-    funcoes.enviarMensagem(req.query);
-    const mensagem = req.query;
+    let respostaMensagem = await funcoes.enviarMensagem(req.query);
+
+    let mensagem = req.query;
+
+    mensagem.id_mensagem = respostaMensagem.id;
+
     Chat.mensagem(mensagem);
-    res.status(200).json("mensagem enviada");
+    res.status(200).json(respostaMensagem);
   });
 
   // Faz a busca das mensagens no chat
@@ -59,14 +63,6 @@ module.exports = (app) => {
     //let conversas = Messages.retornarConversas();
     res.status(200).json(conversas);
   });
-
-  /*
-  app.post("/carregarAtendente", function (req, res) {
-    Atendente.buscarAtendente(req.query);
-    let atendente = Atendente.retornarAtendente();
-    res.status(200).json(atendente);
-  });
-  */
 
   app.post("/inserirNotificacoes", function (req, res) {
     Notificacao.inserirNotificacao(req.query);
@@ -151,6 +147,11 @@ module.exports = (app) => {
     res.status(200).json(clienteChat);
   });
 
+  app.post("/pesquisarClienteFone", async function (req, res) {
+    let clienteChat = await clientes.pesquisarClienteFone(req.query.fone);
+    res.status(200).json(clienteChat);
+  });
+
   app.post("/atualizarCliente", async function (req, res) {
     let cliente = {
       nome: req.query.nome,
@@ -186,5 +187,10 @@ module.exports = (app) => {
   app.post("/pegarMensagens", async function (req, res) {
     let mensagem = await mensagensSistema.buscarMensagensSistema(req.query.id);
     res.status(200).json(mensagem);
+  });
+
+  app.post("/encaminhar-mensagem", async function (req, res) {
+    let respostaMensagem = await funcoes.encaminharMensagem(req.query);
+    res.status(200).json(respostaMensagem);
   });
 };

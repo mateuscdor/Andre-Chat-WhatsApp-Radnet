@@ -26,7 +26,8 @@ class ChatController {
           messages[index],
           "funcionario",
           GuardarNumerosClicacos.retornarNumerosClicacos().conectado,
-          messages[index].type
+          messages[index].type,
+          messages[index].id_mensagem
         );
       }
     });
@@ -39,6 +40,8 @@ class ChatController {
 
     this.socket.on("wppMessage", function (message) {
       console.log("socket / wppmessage");
+
+      console.log(message);
 
       let numeroDestinatario = message.author;
       let numeroClicado = null;
@@ -56,7 +59,6 @@ class ChatController {
       div.empty();
 
       let conversas = ChatRequisicoesAjax.carregarConversas(ip_servidor);
-      console.log(conversas);
 
       InserirUltimasMensagens.inserirUltimasMensagens(conversas);
 
@@ -66,7 +68,13 @@ class ChatController {
 
       // notificação
       if (numeroClicado == numeroDestinatario) {
-        RenderMensagensChat.renderMensagensChat(message, "wppMessage");
+        RenderMensagensChat.renderMensagensChat(
+          message,
+          "wppMessage",
+          null,
+          null,
+          message.id_mensagem
+        );
       } else {
         let notificacoes = document.querySelectorAll(".clientesConversa");
 
@@ -95,6 +103,24 @@ class ChatController {
 
     let resposta = null;
     let protocoloCliente = null;
+    let id_mensagem = null;
+
+    /*
+    const divResponder = document.querySelector("#responderMensagem");
+
+    if (divResponder != null) {
+    } else {
+    }
+    */
+
+    //implementar uma funcionalidade para anexar o codigo das mensagem
+    let responderMensagem = document.querySelector("#responderMensagem");
+
+    if (responderMensagem != null) {
+      console.log("existe uma responta");
+    } else {
+      console.log("não existe uma resposta");
+    }
 
     var author = GuardarNumerosClicacos.retornarNumerosClicacos().conectado;
     var message = $("input[name=texto]").val();
@@ -102,12 +128,8 @@ class ChatController {
 
     let mensagensInternas = document.querySelector(".mensagens-internas");
 
-    console.log(mensagensInternas);
-
     let mensagensInternasAtivado =
       mensagensInternas.classList.contains("ativado");
-
-    console.log(mensagensInternasAtivado);
 
     var created_at = moment(new Date().getTime()).format("YYYY-MM-DD HH:mm:ss");
     var conectado = GuardarNumerosClicacos.retornarNumerosClicacos().conectado;
@@ -190,7 +212,7 @@ class ChatController {
         var type = "chat";
 
         // enviar
-        ChatRequisicoesAjax.enviarMensagem(
+        id_mensagem = ChatRequisicoesAjax.enviarMensagem(
           ip_servidor,
           session,
           author,
@@ -213,7 +235,8 @@ class ChatController {
           messageObject,
           "browser",
           conectado,
-          type
+          type,
+          id_mensagem.id
         );
 
         this.socket.emit("sendMessage", messageObject);
@@ -248,6 +271,51 @@ class ChatController {
       mensagensInternas.style.borderRadius = "";
       icon.classList.add("desativado");
       icon.classList.remove("ativado");
+    }
+  }
+
+  copiarmensagemChat(div) {
+    let copy =
+      div.parentNode.parentNode.parentNode.parentNode.children[0].children[1];
+
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(copy).text().trim()).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    toastr.success("Mensagem copiada para área de tranferência");
+  }
+
+  responderMensagemChat(div) {
+    const divResponder = $(".responder");
+    divResponder.empty();
+
+    RenderResponder.renderResponder(
+      $(div.parentNode.parentNode.parentNode.parentNode.children[0].children[1])
+        .text()
+        .trim()
+    );
+  }
+
+  fecharResponder() {
+    const divResponder = $(".responder");
+    divResponder.empty();
+  }
+
+  opcoesMouseover(div) {
+    if (div.children[0].className == "botoes") {
+      div.children[0].style.visibility = "visible";
+    } else {
+      div.children[1].style.visibility = "visible";
+    }
+  }
+
+  opcoesMouseout(div) {
+    if (div.children[0].className == "botoes") {
+      div.children[0].style.visibility = "hidden";
+    } else {
+      div.children[1].style.visibility = "hidden";
     }
   }
 
@@ -305,6 +373,8 @@ class ChatController {
 
     let selectCanais = document.querySelector(".selectCanal");
 
+    $(selectCanais).empty();
+
     canais.forEach((element) => {
       let canaisInserir = `   
         <option value="${element.fone}">${element.nome} - ${element.fone}</option>
@@ -315,24 +385,14 @@ class ChatController {
   }
 
   botoesTransferirAtendimento() {
-    let btnPessoa = document.querySelector("#botaoPessoa");
-    let btnDepartamento = document.querySelector("#botaoDepartamento");
-
     let modalPessoa = document.querySelector(".modalPessoa");
-    let modalDepartamento = document.querySelector(".modalDepartamento");
 
-    let departamentos = ChatRequisicoesAjax.buscarDepartamento(
-      this.ip_servidor
-    );
     let atendentes = ChatRequisicoesAjax.buscarAtendentesDisponiveis(
       this.ip_servidor
     );
 
     let templatePessoa =
       RenderTransferirAtendimentoPessoa.renderTransferirAtendimentoPessoa();
-
-    let templateDepartamento =
-      RenderTransferirAtendimentoDepartamento.renderTransferirAtendimentoDepartamento();
 
     $(document).ready(function () {
       $(modalPessoa).append(templatePessoa);
@@ -343,54 +403,77 @@ class ChatController {
           `<option value="${atendentes[index].nome}">${atendentes[index].nome}  - ${atendentes[index].nivel_acesso}</option>`
         );
       }
-      ("");
-    });
-
-    btnPessoa.addEventListener("click", () => {
-      if (!btnPessoa.classList.contains("btn-primary")) {
-        btnPessoa.classList.remove("btn-light");
-        btnPessoa.classList.add("btn-primary");
-
-        btnDepartamento.classList.remove("btn-primary");
-        btnDepartamento.classList.add("btn-light");
-
-        $(modalPessoa).append(templatePessoa);
-        $(".templateDepartamento").remove();
-
-        let selectAtendentes = document.querySelector("#inputGroupSelect01");
-
-        for (let index = 0; index < atendentes.length; index++) {
-          $(selectAtendentes).append(
-            `<option value="${atendentes[index].nome}">${atendentes[index].nome}  - ${atendentes[index].nivel_acesso}</option>`
-          );
-        }
-      }
-    });
-
-    btnDepartamento.addEventListener("click", () => {
-      if (!btnDepartamento.classList.contains("btn-primary")) {
-        btnDepartamento.classList.remove("btn-light");
-        btnDepartamento.classList.add("btn-primary");
-
-        btnPessoa.classList.remove("btn-primary");
-        btnPessoa.classList.add("btn-light");
-
-        $(modalDepartamento).append(templateDepartamento);
-        $(".templatePessoa").remove();
-
-        let selectDepartamentos = document.querySelector("#inputGroupSelect01");
-
-        for (let index = 0; index < departamentos.length; index++) {
-          $(selectDepartamentos).append(
-            `<option value="${departamentos[index].departamento}">${departamentos[index].departamento} </option>`
-          );
-        }
-      }
     });
   }
 
+  btnPessoaTransferenciaAtendimento() {
+    let btnPessoa = document.querySelector("#botaoPessoa");
+    let btnDepartamento = document.querySelector("#botaoDepartamento");
+    let modalPessoa = document.querySelector(".modalPessoa");
+
+    let templatePessoa =
+      RenderTransferirAtendimentoPessoa.renderTransferirAtendimentoPessoa();
+
+    let templateDepartamento =
+      RenderTransferirAtendimentoDepartamento.renderTransferirAtendimentoDepartamento();
+
+    let atendentes = ChatRequisicoesAjax.buscarAtendentesDisponiveis(
+      this.ip_servidor
+    );
+
+    if (!btnPessoa.classList.contains("btn-primary")) {
+      btnPessoa.classList.remove("btn-light");
+      btnPessoa.classList.add("btn-primary");
+
+      btnDepartamento.classList.remove("btn-primary");
+      btnDepartamento.classList.add("btn-light");
+
+      $(modalPessoa).append(templatePessoa);
+      $(".templateDepartamento").remove();
+
+      let selectAtendentes = document.querySelector("#inputGroupSelect01");
+
+      for (let index = 0; index < atendentes.length; index++) {
+        $(selectAtendentes).append(
+          `<option value="${atendentes[index].nome}">${atendentes[index].nome}  - ${atendentes[index].nivel_acesso}</option>`
+        );
+      }
+    }
+  }
+
+  btnDepartamentoTransferenciaAtendimento() {
+    let btnPessoa = document.querySelector("#botaoPessoa");
+    let btnDepartamento = document.querySelector("#botaoDepartamento");
+    let modalDepartamento = document.querySelector(".modalDepartamento");
+
+    let departamentos = ChatRequisicoesAjax.buscarDepartamento(
+      this.ip_servidor
+    );
+
+    let templateDepartamento =
+      RenderTransferirAtendimentoDepartamento.renderTransferirAtendimentoDepartamento();
+
+    if (!btnDepartamento.classList.contains("btn-primary")) {
+      btnDepartamento.classList.remove("btn-light");
+      btnDepartamento.classList.add("btn-primary");
+
+      btnPessoa.classList.remove("btn-primary");
+      btnPessoa.classList.add("btn-light");
+
+      $(modalDepartamento).append(templateDepartamento);
+      $(".templatePessoa").remove();
+
+      let selectDepartamentos = document.querySelector("#inputGroupSelect01");
+
+      for (let index = 0; index < departamentos.length; index++) {
+        $(selectDepartamentos).append(
+          `<option value="${departamentos[index].departamento}">${departamentos[index].departamento} </option>`
+        );
+      }
+    }
+  }
+
   transferirAtendimento() {
-    let btnTransferir = document.querySelector("#btnTransferir");
     let aviso = document.querySelector(".avisoPreencher");
     let avisoColocar = `
     <p class="text-center bg-danger text-light p-1" id="avisoPreencher">
@@ -398,37 +481,35 @@ class ChatController {
     </p>
     `;
 
-    btnTransferir.addEventListener("click", () => {
-      let select = $("#inputGroupSelect01 :selected").val();
-      let mensagem = $("#mensagemTransferencia").val();
+    let select = $("#inputGroupSelect01 :selected").val();
+    let mensagem = $("#mensagemTransferencia").val();
 
-      if (select == "") {
-        if (aviso.children.length === 0) {
-          $(aviso).append(avisoColocar);
-        } else {
-          console.log("contem aviso");
-        }
+    if (select == "") {
+      if (aviso.children.length === 0) {
+        $(aviso).append(avisoColocar);
       } else {
-        let atendimento = {
-          cliente: GuardarNumerosClicacos.retornarNumerosClicacos().cliente,
-          requerente:
-            GuardarNumerosClicacos.retornarNumerosClicacos().conectado,
-          destino: select,
-          mensagem: mensagem,
-          status: "aberta",
-        };
-
-        ChatRequisicoesAjax.criarTransferenciaAtendimentoAjax(
-          this.ip_servidor,
-          atendimento
-        );
-
-        $("#exampleModal3").modal("hide");
-        toastr.success("Transferencia feita com sucesso");
+        console.log("contem aviso");
       }
+    } else {
+      let atendimento = {
+        cliente: GuardarNumerosClicacos.retornarNumerosClicacos().cliente,
+        requerente: GuardarNumerosClicacos.retornarNumerosClicacos().conectado,
+        destino: select,
+        mensagem: mensagem,
+        status: "aberta",
+      };
 
-      //essa funcionalidade está enviando varios avisos devido ao fato de ter varios selects com mesmo id
-    });
+      ChatRequisicoesAjax.criarTransferenciaAtendimentoAjax(
+        this.ip_servidor,
+        atendimento
+      );
+
+      $("#exampleModal3").modal("hide");
+      $(aviso).empty();
+      toastr.success("Transferencia feita com sucesso");
+    }
+
+    //essa funcionalidade está enviando varios avisos devido ao fato de ter varios selects com mesmo id
   }
 
   removerAvisoModalTransferir() {
@@ -451,8 +532,6 @@ class ChatController {
         GuardarNumerosClicacos.retornarNumerosClicacos().cliente
       );
 
-      console.log("ok");
-
       if (!infoCliente.length) {
         let nomeCliente = (document.querySelector(
           "[name='nomeCliente']"
@@ -462,8 +541,6 @@ class ChatController {
           "[name='contatoCliente']"
         ).value = GuardarNumerosClicacos.retornarNumerosClicacos().cliente);
       } else {
-        console.log(infoCliente[0]);
-
         let endereco = ChatRequisicoesAjax.pesquisarEnderecoAjax(
           this.ip_servidor,
           infoCliente[0].id_endereco
@@ -490,8 +567,6 @@ class ChatController {
           infoCliente[0].id_cliente
         );
 
-        console.log(cliente);
-
         document.querySelector("[name='nomeCliente']").value = cliente[0].nome;
         document.querySelector("[name='contatoCliente']").value =
           cliente[0].contato;
@@ -503,8 +578,6 @@ class ChatController {
           cliente[0].empresa;
         document.querySelector("[name='anotacoesCliente']").value =
           cliente[0].anotacoes;
-
-        console.log(cliente);
       }
     });
   }

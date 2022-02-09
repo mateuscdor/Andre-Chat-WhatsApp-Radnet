@@ -37,6 +37,24 @@ class Clientes {
     });
   }
 
+  pesquisarClienteFone(fone) {
+    return new Promise((resolve, reject) => {
+      try {
+        const sql = `SELECT * FROM clientes WHERE contato=${fone} LIMIT 1`;
+
+        conexao.query(sql, (erro, resultados) => {
+          if (erro) {
+            console.log(erro);
+          }
+          var cliente = JSON.parse(JSON.stringify(resultados));
+          resolve(cliente);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   atualizarCliente(cliente, id) {
     return new Promise((resolve, reject) => {
       try {

@@ -45,7 +45,7 @@ module.exports = (app) => {
 
       Atendente.cadastrarAvatar(caminho, req.session.id_usuario);
 
-      res.status(200).json("funcionou");
+      res.redirect("/perfil/" + req.session.id_usuario);
     }
   );
 };

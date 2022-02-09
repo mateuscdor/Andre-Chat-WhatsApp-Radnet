@@ -85,17 +85,36 @@ class RenderUltimaMensagem {
           fones.from_number
         );
 
-        let clienteStrong = document.querySelector("#clienteStrong");
-        clienteStrong.innerHTML = fones.from_number;
+        let clienteCadastrado = ChatRequisicoesAjax.buscarClienteFone(
+          ip_servidor,
+          fones.from_number
+        );
 
-        let clienteSmall = document.querySelector("#clienteSmall");
-        clienteSmall.innerHTML = fones.from_number;
+        if (clienteCadastrado.length) {
+          let clienteStrong = document.querySelector("#clienteStrong");
+          clienteStrong.innerHTML = clienteCadastrado[0].nome;
 
-        let canalStrong = document.querySelector("#canalStrong");
-        canalStrong.innerHTML = `Canal: ${fones.to_number}`;
+          let clienteSmall = document.querySelector("#clienteSmall");
+          clienteSmall.innerHTML = fones.from_number;
 
-        let protocoloSmall = document.querySelector("#protocoloSmall");
-        protocoloSmall.innerHTML = `Protocolo: ${protocoloAtendimento[0].protocolo}`;
+          let canalStrong = document.querySelector("#canalStrong");
+          canalStrong.innerHTML = `Canal: ${fones.to_number}`;
+
+          let protocoloSmall = document.querySelector("#protocoloSmall");
+          protocoloSmall.innerHTML = `Protocolo: ${protocoloAtendimento[0].protocolo}`;
+        } else {
+          let clienteStrong = document.querySelector("#clienteStrong");
+          clienteStrong.innerHTML = fones.from_number;
+
+          let clienteSmall = document.querySelector("#clienteSmall");
+          clienteSmall.innerHTML = fones.from_number;
+
+          let canalStrong = document.querySelector("#canalStrong");
+          canalStrong.innerHTML = `Canal: ${fones.to_number}`;
+
+          let protocoloSmall = document.querySelector("#protocoloSmall");
+          protocoloSmall.innerHTML = `Protocolo: ${protocoloAtendimento[0].protocolo}`;
+        }
       });
     });
   }

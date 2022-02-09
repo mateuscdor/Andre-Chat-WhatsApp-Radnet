@@ -3,7 +3,7 @@ class RenderQrCode {
     let qrcode = `
         <div class="row">
         <div
-            class="col-md-12 d-flex justify-content-between align-items-center">
+            class="col-md-12 d-flex justify-content-between align-items-center mb-3">
             <h1>Escaneie o QR CODE</h1>
 
             <a href="/canais"><button class="btn btn-primary btn-sm"><i

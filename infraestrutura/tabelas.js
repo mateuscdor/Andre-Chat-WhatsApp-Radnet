@@ -30,6 +30,7 @@ class Tabelas {
         created_at datetime NOT NULL,
         id_protocolo varchar(50),
         status varchar(45),
+        id_mensagem varchar(255),
         PRIMARY KEY(id))`;
 
     this.conexao.query(sql, (erro) => {
