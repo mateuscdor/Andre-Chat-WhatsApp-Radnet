@@ -155,6 +155,30 @@ class Funcoes {
     });
   }
 
+  enviarMensagemDocumento(message) {
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("functions enviar Mensagem Documento");
+
+        resolve(this.whatsapp.decryptFileSave(message, "./files/teste4.pdf"));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  enviarImagem(fone, url, text) {
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("functions enviar Imagem");
+
+        resolve(this.whatsapp.sendImage(fone, url, text));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   encaminharMensagem(message) {
     return new Promise((resolve, reject) => {
       try {
